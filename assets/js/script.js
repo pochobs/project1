@@ -73,13 +73,23 @@ function AddMarkers(){
     if (rentListArr.length==0)
         readHousesList();
 
+    // corrdinates to center the map on - calculated in the for loop
+    var coords = {
+        lat : 0,
+        lng : 0
+    }
+
     for (i=0; i<rentListArr.length; i++ ){
         var markerLatLng = { lat: rentListArr[i].lat, lng: rentListArr[i].lon };
-        //var imageIcon = "http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png";
+
+        coords.lat += rentListArr[i].lat;
+        coords.lng += rentListArr[i].lon;
+
         var imageIcon = {
             url: "http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png", 
             scaledSize: new google.maps.Size(30, 30)
         }
+
         var marker = new google.maps.Marker({
             position: markerLatLng,
             map: map,
@@ -87,18 +97,35 @@ function AddMarkers(){
             icon: imageIcon
           });
     }
+
+    coords.lat = coords.lat / rentListArr.length;
+    coords.lng = coords.lng / rentListArr.length;
+    
+    return coords;
 }
 
 // Initialize map
 function initMap() {
-    map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: 30.436436, lng: -97.747306 },
-      zoom: 15
-    });
 
-    AddMarkers();
+    var script = document.createElement("script");
+    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyD2bb0Fylaw4UA6pfhINwxIWBRN39ggjYc&callback=initMap";
+    script.defer = true;
+    script.async = true;
+
+    window.initMap = function(){
+        map = new google.maps.Map(document.getElementById("map"),{
+            center: {lat: 30.436436, lng : -97.747306},
+            zoom : 15
+        });
+
+        var coords = AddMarkers();
+
+        map.setCenter(coords);
+    }
+
+    
+    document.head.appendChild(script);
 }
 
-
-
+initMap();
 //getHousesList(78727,'Austin','TX');
