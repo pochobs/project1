@@ -1,5 +1,7 @@
 var rentListArr = [];
 var map;
+var directionsService;
+var directionsRenderer;
 
 //API to get list of houses by zip code, city, state and radius
 // It searches only single_family houses
@@ -109,6 +111,21 @@ var addMarkers = function(){
     return coords;
 }
 
+// Calculate Route and put it on the map
+var calcRoute = function(startCoord, destCoord){
+    var request = {
+        origin : startCoord,
+        destination : destCoord,
+        travelMode : 'DRIVING'
+    };
+
+    directionsService.route(request, function(result, status){
+        if (status == 'OK'){
+            directionsRenderer.setDirections(result);
+        }
+    });
+}
+
 // Initialize map
 var initMap = function(coordinates, houseInfo) {
 
@@ -126,7 +143,17 @@ var initMap = function(coordinates, houseInfo) {
             map.setCenter(addMarkers());
         else{
             addOneMarker(coordinates, houseInfo);
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer();
             map.setCenter(coordinates);
+            directionsRenderer.setMap(map);
+
+            // !!! change this code to get current location
+            var currentLocation = {
+                lat : 30.271842, lng : -97.689640
+            };
+             
+            calcRoute(currentLocation, coordinates);
         }
     }
 
