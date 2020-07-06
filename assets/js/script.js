@@ -68,8 +68,23 @@ var readHousesList = function(){
     }
 }
 
+//Add one marker on the map
+var addOneMarker = function(markerLatLng, houseInfo){
+    var imageIcon = {
+        url: "http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png", 
+        scaledSize: new google.maps.Size(30, 30)
+    };
+
+    var marker = new google.maps.Marker({
+        position: markerLatLng,
+        map: map,
+        title: "Address: " + houseInfo.line + "; Price: $" + houseInfo.price,
+        icon: imageIcon
+      });
+}
+
 //Read Houses List from Local Storage and put them to the map
-function AddMarkers(){
+var addMarkers = function(){
     if (rentListArr.length==0)
         readHousesList();
 
@@ -85,17 +100,7 @@ function AddMarkers(){
         coords.lat += rentListArr[i].lat;
         coords.lng += rentListArr[i].lon;
 
-        var imageIcon = {
-            url: "http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png", 
-            scaledSize: new google.maps.Size(30, 30)
-        }
-
-        var marker = new google.maps.Marker({
-            position: markerLatLng,
-            map: map,
-            title: "Address: " + rentListArr[i].line + "; Price: $" + rentListArr[i].price,
-            icon: imageIcon
-          });
+        addOneMarker(markerLatLng, rentListArr[i]);
     }
 
     coords.lat = coords.lat / rentListArr.length;
@@ -105,7 +110,7 @@ function AddMarkers(){
 }
 
 // Initialize map
-function initMap() {
+var initMap = function(coordinates, houseInfo) {
 
     var script = document.createElement("script");
     script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyD2bb0Fylaw4UA6pfhINwxIWBRN39ggjYc&callback=initMap";
@@ -114,18 +119,42 @@ function initMap() {
 
     window.initMap = function(){
         map = new google.maps.Map(document.getElementById("map"),{
-            center: {lat: 30.436436, lng : -97.747306},
             zoom : 15
         });
 
-        var coords = AddMarkers();
-
-        map.setCenter(coords);
+        if (!coordinates)
+            map.setCenter(addMarkers());
+        else{
+            addOneMarker(coordinates, houseInfo);
+            map.setCenter(coordinates);
+        }
     }
 
-    
     document.head.appendChild(script);
 }
 
-initMap();
-//getHousesList(78727,'Austin','TX');
+// Initilize map for one listing
+var initMapOneListing = function(){
+
+    // !!!! replace this code with getting data from QueryStrings
+    var coordinates = {
+        lat : 30.427406,
+        lng : -97.72106
+    }
+    var houseInfo = {
+        line :"4519 Sidereal Dr",
+        price : 2100
+    }
+
+    initMap(coordinates, houseInfo);
+}
+
+
+// call to put multiple listing on the map; list of houses is taken from the local storage
+//initMap(); 
+
+// call to put one listing on the map
+initMapOneListing()
+ 
+// call to get rental houses list for zip code, city and state; the list is saved to local storage;
+//getHousesList(78727,'Austin','TX'); 
