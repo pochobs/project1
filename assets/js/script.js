@@ -36,13 +36,13 @@ var getHousesList = function(postal_code, city, state_code, radius){
                         postal_code : data.properties[i].address.postal_code,
                         line : data.properties[i].address.line,
                         state: data.properties[i].address.state,
-                        bath: data.properties[i].address.baths,
-                        beds: data.properties[i].address.beds,
+                        baths: data.properties[i].baths,
+                        beds: data.properties[i].beds,
                         building_size : data.properties[i].building_size.size, 
                         building_size_units : data.properties[i].building_size.units, 
                         price : data.properties[i].price,
                         year_built: data.properties[i].year_built,
-                        //first_photo : data.properties[i].photos[0].href
+                        photos : data.properties[i].photos
                     }
 
                     rentListArr.push(house);
@@ -139,9 +139,9 @@ var initMap = function(coordinates, houseInfo) {
             zoom : 15
         });
 
-        if (!coordinates)
+        if (!coordinates) // put all houses on the map
             map.setCenter(addMarkers());
-        else{
+        else{  // put just this one house on the map and give directions from the current location
             addOneMarker(coordinates, houseInfo);
             directionsService = new google.maps.DirectionsService();
             directionsRenderer = new google.maps.DirectionsRenderer();
@@ -181,7 +181,7 @@ var initMapOneListing = function(){
 //initMap(); 
 
 // call to put one listing on the map
-initMapOneListing()
+//initMapOneListing()
  
 // call to get rental houses list for zip code, city and state; the list is saved to local storage;
-//getHousesList(78727,'Austin','TX'); 
+getHousesList(78727,'Austin','TX'); 
