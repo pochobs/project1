@@ -150,6 +150,9 @@ var initMapOneListing = function(){
 }
 
 
+
+
+
 // call to put multiple listing on the map; list of houses is taken from the local storage
 //initMap(); 
 
