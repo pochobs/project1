@@ -3,25 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/figma2.css">
+     <!-- Compressed CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+<link rel="stylesheet" href="./assets/css/figma2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Rasa&display=swap" rel="stylesheet">
     <title>Go Rentz</title>
+   
+
 </head>
 <body>
     <header>
-        <div class="header">
-            <div class="navbar">
-                <i class="lupaicon"></i>
-                <input type="text" name="search" class="search" placeholder="City, State, Zip Code">                
+        <div class="header container">
+            <div class="col navbar">
+                <input type="text" name="search" class="col s6 search" placeholder="City, State, Zip Code">                
                 <h3 class="citynav">City:</h3>
                 <h3 class="temperature">0</h3>
-                <img class="tempicon"></img>
+                <img href="../Images/temperature-celcius-icon.png" class="tempicon"></img>
 
             </div>
         </div>
     </header>
-    <div class="sortbar"></div>
+    <nav class="sortbar"></nav>
     <main class="">
         
         <div class="main">
@@ -44,7 +47,6 @@
                                 
                             </div>
                         </div>
-                    </div>
                 </div>
                 <div class="propertyinfo">
                     <p class="distance">15 minutes</p>
@@ -60,14 +62,20 @@
         </div>
     </main>
     <footer>
-        <div class="footer">
-            <div class="visit"></div>
-            <div class="go"></div>
-            <div class="myhomes"></div>
+        <tfoot class="footer flex-container">
+            <td class="visitbtn">
+                <a href="./visit.html" class="visitbtn">
+                    <h3 class="text">VISIT</h3>
+                    <i class="listicon"  alt=""></i>
+                </a>
+            </td>
+            <td class="go"></td>
+            <td class="myhomes"></dtd>
 
-        </div>
+        </tfoot>
     </footer>
 
-
+<!-- Compressed JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
 </body>
 </html>

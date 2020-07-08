@@ -1,0 +1,66 @@
+
+/* .propertyinfo {
+        background-size: cover;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+} */
+* {
+    margin: 0;
+}
+li .property-image {
+    
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: auto;
+    position: relative;
+    width: auto;
+    height: 100%;
+    left: 0px;
+    top: 1px;
+}
+.property-info {
+       display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+}
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+.display-image {
+    width: 100%;
+    height: 100%;
+}
+.price {
+    width: 96.08px;
+    height: 18px;
+       
+    font-family: Righteous;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    
+    color: #000000;
+}
+.bedroom {
+
+}
+.bathroom {
+
+}
+
+.full-address {
+
+}
+sqft. {
+
+}
+
+

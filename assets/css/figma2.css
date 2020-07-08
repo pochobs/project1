@@ -1,9 +1,13 @@
+* {
+    position: relative;
+}
+
 /* header */
 header {
 position: absolute;
 width: 360px;
 max-width: 1180;
-height: 46px;
+min-height: 60px;
 left: 0px;
 top: 0px;
 
@@ -53,16 +57,7 @@ color: rgb(140, 140, 172);
 
 
 /* Lupa */
-.lupaicon {
-position: absolute;
-width: 24.91px;
-height: 27.69px;
-right: 124.81px;
-bottom: 9.31px;
 
-background: url("../Images/search-icon-thin.png")
-
-}
 /* temperature sun icon 1 */
 .tempicon {
 position: absolute;
@@ -72,16 +67,16 @@ left: 325px;
 top: 9px;
 
 background: url("../Images/temperature-celcius-icon.png");
+background-size: cover;
 }
 
 /* Temp */
 .temperature {
-position: absolute;
 width: 24px;
 height: 11px;
 left: 300px;
-top: 12px;
-
+margin: 0;
+padding-top: 14px;
 font-family: Rasa;
 font-style: normal;
 font-weight: bold;
@@ -101,7 +96,8 @@ position: absolute;
 width: 44px;
 height: 22px;
 left: 251px;
-top: 13px;
+margin: 0;
+padding-top: 14px;
 
 font-family: Rasa;
 font-style: normal;
@@ -125,6 +121,7 @@ top: 46px;
 background: linear-gradient(115.82deg, rgba(181, 217, 245, 0.31) 95.77%, rgba(29, 222, 216, 0.100641) 118.05%, rgba(17, 248, 234, 0.00484375) 147.31%, rgba(75, 171, 73, 0) 147.32%, rgba(197, 245, 248, 0.1736) 147.32%);
 }
 
+
 /* main */
 .main {
 position: absolute;
@@ -145,7 +142,7 @@ top: 1px;
 /* picture display */
 
 .picturedisplay {
-
+display: flex;
 width: 360px;
 height: 184px;
 left: 0px;
@@ -160,15 +157,17 @@ left: 0px;
 top: 1px;
 
 background: url("../Images/Front-Side.jpeg");
+background-size: cover;
 }
 /* Favorite Icon */
 .hearticon {
+position: absolute;
 width: 17px;
 height: 17px;
 left: 336px;
 top: 12px;
-
 background: url("../Images/heart-unclick.png");
+background-size: cover;
 }
 /* next arrow icon */
 .nexticon {
@@ -177,8 +176,8 @@ width: 25px;
 height: 25px;
 left: 326px;
 top: 81px;
-
 background: url("../Images/arrow-next-icon.png");
+background-size: cover;
 }
 /* preview arrow icon */
 .previousicon {
@@ -189,6 +188,7 @@ background: url("../Images/arrow-next-icon.png");
     top: 81px;
     
     background: url("../Images/arrow-next-icon.png");
+    background-size: cover;
     transform: matrix(-1, 0, 0, 1, 0, 0);
 }
 /* Select button */
@@ -276,10 +276,11 @@ width: 358.69px;
 height: 54px;
 left: 0px;
 top: 187px;
+display: flexbox;
 }
 /*distance*/
 .distance {
-
+    display: flex;
     width: 76.22px;
     height: 10.42px;
     left: 2.18px;
@@ -298,7 +299,7 @@ top: 187px;
 
 /* Price */
 .price {
-
+display: flex;
 width: 96.08px;
 height: 18px;
 left: 9.14px;
@@ -315,7 +316,7 @@ color: #000000;
 }
 /* full Address */
 .fulladdress {
-   
+    display: flex;  
     width: 261.55px;
     height: 20.84px;
     left: 7px;
@@ -337,12 +338,11 @@ width: 150.34px;
 height: 12.32px;
 left: 131.14px;
 top: 195px;
+display: flex;
 }
 /* beds */
 .bed{
-
-width: 27.76px;
-height: 12.32px;
+display: inline;
 left: 135.58px;
 top: 195px;
 
@@ -358,9 +358,8 @@ color: #000000;
 
 /* baths */
 .bath {
+display: inline;
 
-width: 27.76px;
-height: 12.32px;
 left: 172.94px;
 top: 195px;
 
@@ -376,9 +375,7 @@ color: #000000;
 
 /* sqft */
 .sqft {
-
-width: 71.53px;
-height: 12.32px;
+display: inline;
 left: 212.44px;
 top: 195px;
 
@@ -390,7 +387,59 @@ line-height: 14px;
 
 color: #000000;
 }
+/* Footer */
+footer {
+position: static;
+display: flex;
+
+bottom: 0px;
+}
+
+img {
+    background-size: cover;
+}
+/* My Homes text */
+.visit img {
+    
+font-family: Noto Sans KR;
+font-style: normal;
+font-weight: 100;
+font-size: 10px;
+line-height: 10px;
+/* or 100% */
+
+display: flex;
+align-items: center;
+text-align: center;
+
+color: #090808;
+
+text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.visitbtn {
+/* button */
 
 
+position: absolute;
+width: 53px;
+height: 59px;
+left: 71px;
+top: 8px;
+
+background: radial-gradient(50% 50% at 50% 50%, #9EE3F9 0%, rgba(158, 227, 249, 0) 100%);
+box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+/* list icon */
+.listicon {
+/* position: absolute;
+width: 33px;
+height: 38px;
+left: 81px;
+top: 23px; */
+
+background: url("../Images/List-black-Icons.png";
+background-size: cover;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
 
 
