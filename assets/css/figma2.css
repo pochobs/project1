@@ -13,32 +13,36 @@
     min-height: 60px;
     background: radial-gradient(194.52% 2394.82% at 50% 50%, rgba(17, 133, 224, 0.31) 21.35%, rgba(17, 248, 234, 0.00484375) 99.99%, rgba(75, 171, 73, 0) 100%);
 }
-.search-box {
-    /* position: absolute ; */
-
+/* .search-box { 
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: center;
 }
 input {
     display: flex;
-    border: 3px solid #32e17c;
+    justify-content: start;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    
+    border: 3px ;
     height: 40px;
     width: 300px;
     border-radius: 50%;
-    padding: 0px 10px;
-    
+    padding: 20px 10px;
 }
 .searchicon {
-    display: flex;
-
-    opacity: 0.5;
+    
+    margin: 8px;
+    align-items: flex-end;
     width: 24.91px;
     height: 27.69px;
-    
+    opacity: 10s;
+    margin-right: 0;
 }
 
-
-
  /* City */
-.citynav {
+/* .citynav {
     width: 44px;
     height: 22px;
     font-family: Rasa;
@@ -46,7 +50,58 @@ input {
     font-weight: normal;
     font-size: 18px;
     line-height: 22px;
-    /* identical to box height */
     text-align: center;
     color: #000000;
+} */.show-password {
+  width: 100%;
+
+  label {
+    position: absolute;
+    left:-9999px;
+    text-indent: -9999px;
+  }
+
+
+.password-wrapper {
+  position: relative;
 }
+
+.password + .unmask {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  text-indent: -9999px;
+  width: 25px;
+  height: 25px;
+  background: #aaa;
+  border-radius: 50%;
+  cursor:pointer;
+  border: none;
+  -webkit-appearance:none;
+}
+
+.password + .unmask:before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 17px;
+  height: 17px;
+  background: #e3e3e3;
+  z-index:1;
+  border-radius: 50%;
+}
+
+.password[type="text"] + .unmask:after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 13px;
+  height: 13px;
+  background: #aaa;
+  z-index: 2;
+  border-radius: 50%;
+}
+

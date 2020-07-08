@@ -190,11 +190,11 @@ var initMapOneListing = function(){
 
 
 // call to put multiple listing on the map; list of houses is taken from the local storage
-initMap(); 
+ initMap(); 
 
 // To put one listing on the map open index.html with the parameters: 
 // index.html?lat=30.427406&lng=-97.72106&line=4519%20Sidereal%20Dr&price=2100
-//initMapOneListing();
+initMapOneListing();
  
 // call to get rental houses list for zip code, city and state (and optional radius); the list is saved to local storage;
-//getHousesList(78727,'Austin','TX'); 
+getHousesList(78727,'Austin','TX'); 

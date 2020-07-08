@@ -11,7 +11,7 @@
 }
 li .property-image {
     display: flex;
-    /* justify-content: ; */
+    justify-content: space-evenly;
     flex-wrap: wrap;
     align-items: center;
     margin: auto;
@@ -72,13 +72,18 @@ li .property-image {
     /* Note: backdrop-filter has minimal browser support */
     }
 ul {
-
+    position: absolute;
+    width: 360px;
+    height: 482px;
+    left: 0px;
+    top: 83px;
     list-style-type: none;
     padding-left: 0;
 }
+
 .display-image {
-    width: 100%;
-    height: 100%;
+    width: 180px;
+    height: 180px;
 }
 .property-info {
     display: flex;
@@ -129,5 +134,8 @@ font-size: 133%;
 line-height: 22px;
 margin: auto;
 }
-
+.maps {
+    width: 360px;
+    height: 482px;
+}
 
