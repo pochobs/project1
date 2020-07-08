@@ -11,7 +11,7 @@
 }
 li .property-image {
     display: flex;
-    justify-content: center;
+    /* justify-content: ; */
     flex-wrap: wrap;
     align-items: center;
     margin: auto;
@@ -23,7 +23,7 @@ li .property-image {
 }
 /* Favorite Icon */
 .hearticon {
-    position: absolute;
+    /* position: absolute; */
     display: flex;
     top: 15px;
     right: 15px;
@@ -59,7 +59,7 @@ li .property-image {
     }
 /* Select button */
 
-.location {
+.locaticon {
     position: absolute;
     width: 20px;
     height: 24px;
