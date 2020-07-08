@@ -2,6 +2,7 @@ var rentListArr = []; // this array hold all houses returned by Realtor API for 
 var map; // used by google maps
 var directionsService; // used by google maps
 var directionsRenderer; // used by google maps
+var ulEl = document.querySelector("#main ul");
 
 // API to get list of houses by zip code, city, state and radius
 // It searches only single_family houses
@@ -77,12 +78,24 @@ var addOneMarker = function(markerLatLng, houseInfo){
         scaledSize: new google.maps.Size(30, 30)
     };
 
+    var contentString = "<div><img src = '" + houseInfo.photos[0].href + "' alt= '" + houseInfo.line + "' />" +
+        "<p>$" + houseInfo.price + "</p>" + 
+        "<p>" + houseInfo.line + ", " + houseInfo.city + ", " + houseInfo.state + "</p>" + 
+        "<p>" + houseInfo.beds + " bd/" + houseInfo.baths + " ba/" + houseInfo.building_size + " " + houseInfo.building_size_units + "</p>" + 
+        "</div>";
+    var infowindow = new google.maps.InfoWindow({
+        content : contentString
+    });
+
     var marker = new google.maps.Marker({
         position: markerLatLng,
         map: map,
         title: "Address: " + houseInfo.line + "; Price: $" + houseInfo.price,
         icon: imageIcon
       });
+    marker.addListener("click", function(){
+        infowindow.open(map,marker);
+    })
 }
 
 //Read Houses List from Local Storage and put them on the map
@@ -189,7 +202,7 @@ var initMapOneListing = function(){
 }
 
 
-// call to put multiple listing on the map; list of houses is taken from the local storage
+// call to put multiple listings on the map; list of houses is taken from the local storage
 initMap(); 
 
 // To put one listing on the map open index.html with the parameters: 
@@ -198,3 +211,4 @@ initMap();
  
 // call to get rental houses list for zip code, city and state (and optional radius); the list is saved to local storage;
 //getHousesList(78727,'Austin','TX'); 
+
