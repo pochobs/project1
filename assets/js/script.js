@@ -28,6 +28,7 @@ var getHousesList = function(postal_code, city, state_code, radius){
         if (response.ok) {
             response.json().then(function(data){
                 console.log(data);
+                rentListArr = [];
                 for (i=0; i< data.meta.returned_rows; i++){
                     var house = {
                         city : data.properties[i].address.city,
@@ -50,6 +51,7 @@ var getHousesList = function(postal_code, city, state_code, radius){
                 }
 
                 localStorage.setItem("FetchedHouses", JSON.stringify(rentListArr));
+                initMap();
             })
         }
         else {
@@ -111,6 +113,7 @@ var addOneMarker = function(markerLatLng, houseInfo){
 
 //Read Houses List from Local Storage and put them on the map
 var addMarkers = function(){
+
     if (rentListArr.length==0)
         readHousesList();
 
@@ -190,6 +193,19 @@ var initMap = function(coordinates, houseInfo) {
     document.head.appendChild(script);
 }
 
+$( ".button" ).click(function( event ) {
+    //     alert( "Handler for .submit() called." );
+        // var submitedValues = function() { 
+        event.preventDefault();        
+        var searchCity = document.querySelector("#search-city").value;
+        var searchState = document.querySelector("#search-state").value;
+        var searchZipcode = document.querySelector("#search-zipcode").value;
+        console.log(searchZipcode, searchCity, searchState,)
+        getHousesList(searchZipcode, searchCity, searchState);
+        //initMap();
+        
+    
+});
 
 // call to put multiple listings on the map; list of houses is taken from the local storage
 initMap(); 
