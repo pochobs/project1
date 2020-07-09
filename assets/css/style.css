@@ -1,0 +1,23 @@
+.top-bar {
+  position: relative;
+}
+.card-section {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+}
+div .price {
+ 
+  /* top: 5px; */
+  
+}
+.moreinfo {
+ 
+}
+.full-address {
+  
+}
+img {
+  height: 55px;
+  width: auto;
+}
