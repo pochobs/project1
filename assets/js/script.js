@@ -1,11 +1,11 @@
-var rentListArr = [];
-var map;
-var directionsService;
-var directionsRenderer;
+var rentListArr = []; // this array hold all houses returned by Realtor API for user entered zip, city and state(also optional radius) 
+var map; // used by google maps
+var directionsService; // used by google maps
+var directionsRenderer; // used by google maps
 
-//API to get list of houses by zip code, city, state and radius
+// API to get list of houses by zip code, city, state and radius
 // It searches only single_family houses
-// Save fetched results to local Storage 
+// It saves fetched results to local Storage 
 var getHousesList = function(postal_code, city, state_code, radius){
 
     //errorEl.innerHTML="";
@@ -85,12 +85,12 @@ var addOneMarker = function(markerLatLng, houseInfo){
       });
 }
 
-//Read Houses List from Local Storage and put them to the map
+//Read Houses List from Local Storage and put them on the map
 var addMarkers = function(){
     if (rentListArr.length==0)
         readHousesList();
 
-    // corrdinates to center the map on - calculated in the for loop
+    // coordinates to center the map on - calculated in the for loop
     var coords = {
         lat : 0,
         lng : 0
@@ -148,29 +148,41 @@ var initMap = function(coordinates, houseInfo) {
             map.setCenter(coordinates);
             directionsRenderer.setMap(map);
 
-            // !!! change this code to get current location
-            var currentLocation = {
-                lat : 30.271842, lng : -97.689640
-            };
-             
-            calcRoute(currentLocation, coordinates);
+            if (navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(function(position){
+                    var currentLocation = {
+                        lat : position.coords.latitude, lng : position.coords.longitude
+                    };
+                    calcRoute(currentLocation, coordinates);
+                });
+            }
+            else
+                console.log("Browser does not support Geolocation!");
         }
     }
 
     document.head.appendChild(script);
 }
 
-// Initilize map for one listing
+// Initilize map for one listing (with direction from current location)
 var initMapOneListing = function(){
 
-    // !!!! replace this code with getting data from QueryStrings
-    var coordinates = {
-        lat : 30.427406,
-        lng : -97.72106
-    }
-    var houseInfo = {
-        line :"4519 Sidereal Dr",
-        price : 2100
+    var queryString = document.location.search;
+
+    const urlParams = new URLSearchParams(location.search);
+
+    var coordinates = {};
+    var houseInfo = {};
+
+    for (const entry of urlParams.entries()) {
+        if (entry[0] == "lat")
+            coordinates.lat = parseFloat(entry[1]);
+        if (entry[0] == "lng")
+            coordinates.lng = parseFloat(entry[1]);
+        if (entry[0] == "line")
+            houseInfo.line = entry[1];
+        if (entry[0] == "price")
+            houseInfo.price = parseInt(entry[1]);
     }
 
     initMap(coordinates, houseInfo);
@@ -181,10 +193,11 @@ var initMapOneListing = function(){
 
 
 // call to put multiple listing on the map; list of houses is taken from the local storage
-//initMap(); 
+initMap(); 
 
-// call to put one listing on the map
-//initMapOneListing()
+// To put one listing on the map open index.html with the parameters: 
+// index.html?lat=30.427406&lng=-97.72106&line=4519%20Sidereal%20Dr&price=2100
+//initMapOneListing();
  
-// call to get rental houses list for zip code, city and state; the list is saved to local storage;
-getHousesList(78727,'Austin','TX'); 
+// call to get rental houses list for zip code, city and state (and optional radius); the list is saved to local storage;
+//getHousesList(78727,'Austin','TX'); 
