@@ -2,6 +2,7 @@ var rentListArr = []; // this array hold all houses returned by Realtor API for 
 var map; // used by google maps
 var directionsService; // used by google maps
 var directionsRenderer; // used by google maps
+var oldDirectionRenderer;
 
 // API to get list of houses by zip code, city, state and radius
 // It searches only single_family houses
@@ -137,6 +138,9 @@ var addMarkers = function(){
 // Calculate Route and put it on the map
 var calcRoute = function(destCoord){
 
+    if (oldDirectionRenderer)
+        oldDirectionRenderer.setMap(null);
+
     directionsService = new google.maps.DirectionsService();
     directionsRenderer = new google.maps.DirectionsRenderer();
     directionsRenderer.setMap(map);
@@ -163,6 +167,8 @@ var calcRoute = function(destCoord){
     }
     else
         console.log("Browser does not support Geolocation!");
+
+    oldDirectionRenderer = directionsRenderer;
 }
 
 // Initialize map
