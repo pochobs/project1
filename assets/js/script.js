@@ -210,9 +210,9 @@ $( ".button" ).click(function( event ) {
     var searchCity = document.querySelector("#search-city").value;
     var searchState = document.querySelector("#search-state").value;
     var searchZipcode = document.querySelector("#search-zipcode").value;
-    console.log(searchCity, searchState, searchZipcode)
+    console.log(searchZipcode, searchCity, searchState,)
     initMap();
-    // getHousesList(searchCity, searchState, searchZipcode);
+    getHousesList(searchZipcode, searchCity, searchState);
 
 });
 
@@ -225,5 +225,5 @@ $( ".button" ).click(function( event ) {
 //initMapOneListing();
  
 // call to get rental houses list for zip code, city and state (and optional radius); the list is saved to local storage;
-// //getHousesList(78727,'Austin','TX'); 
+// getHousesList(78727,'Austin','TX'); 
 // searchSubmit.addEventListener("submit", submitedValues);
