@@ -1,0 +1,106 @@
+/* Footer */
+ footer {
+position: sticky;
+display: flex;
+justify-content: space-evenly;
+flex-wrap: wrap;
+align-items: center;
+min-width: 360px;
+height: 75px;
+padding: 0;
+bottom: 0;
+position: absolute;
+width: 360px;
+height: 75px;
+left: 0px;
+top: 565px;
+
+}
+
+
+.container {
+display: flex;
+justify-content: space-around;
+flex-wrap: wrap;
+align-items: center;
+position: relative;
+width: 360px;
+height: 75px;
+left: 0px;
+top: 0px;
+
+background: #1185E0;
+}
+.visitbutton {
+    /* Visit button */
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+align-items: flex-start;
+width: 53px;
+height: 59px;
+left: 71px;
+top: 8px;
+background: radial-gradient(50% 50% at 50% 50%, #9EE3F9 0%, rgba(158, 227, 249, 0) 100%);
+box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.25);
+border-radius: 30px;
+}
+#visit {
+font-family: Noto Sans KR;
+font-style: normal;
+font-weight: 100;
+font-size: 10px;
+line-height: 10px;
+/* or 100% */
+margin: 0;
+display: flex;
+align-items: center;
+text-align: center;
+color: #090808;
+
+text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.fadebox {
+padding-top: 8px;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+text-align: center;
+background: radial-gradient(50% 50% at 50% 50%, #9EE3F9 0%, rgba(158, 227, 249, 0) 100%);
+
+}
+.listicon {
+width: 30px;
+height: 33px;
+left: 81px;
+top: 23px;
+
+}
+
+/* red circle */
+.redcircle {
+width: 64px;
+height: 64px;
+border-radius: 100px;
+background: #FF0808;
+border: 3px solid #FFFFFF;
+box-sizing: border-box;
+}
+    /* GO */
+#go {
+
+width: 59px;
+height: 48px;
+font-family: Noto Serif;
+font-style: normal;
+font-weight: normal;
+font-size: 40px;
+margin-top: 3px;
+display: flex;
+align-items: center;
+text-align: center;
+
+color: #FDF4F4;
+
+
+}

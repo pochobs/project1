@@ -1,0 +1,133 @@
+
+/* .propertyinfo {
+        background-size: cover;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+} */
+* {
+    margin: 0;
+}
+li .property-image {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: auto;
+    position: relative;
+    width: auto;
+    height: 100%;
+    left: 0px;
+    top: 1px;
+}
+/* Favorite Icon */
+.hearticon {
+    position: absolute;
+    display: flex;
+    top: 15px;
+    right: 15px;
+    width: 17px;
+    height: 17px;
+    left: 336px;
+    top: 12px;
+    border-style: none;
+    background: url("../Images/heart-unclick.png");
+    background-size: cover;
+}
+.nexticon {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    left: 326px;
+    top: 81px;
+    border-style: none;
+    background: url("../Images/arrow-next-icon.png");
+    background-size: cover;
+}
+    /* preview arrow icon */
+    .previousicon {
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        left: 20px;
+        top: 81px;
+        border-style: none;
+        background: url("../Images/arrow-next-icon.png");
+        background-size: cover;
+        transform: matrix(-1, 0, 0, 1, 0, 0);
+    }
+/* Select button */
+
+.location {
+    position: absolute;
+    width: 20px;
+    height: 24px;
+    left: 10px;
+    top: 8px;
+    border-style: none;
+    background-image: url("../Images/Pinpoint-maps-unclicked-icon.png");
+    background-size: cover;
+    backdrop-filter: blur(4px);
+    /* Note: backdrop-filter has minimal browser support */
+    }
+ul {
+
+    list-style-type: none;
+    padding-left: 0;
+}
+.display-image {
+    width: 120px;
+    height: 100%;
+}
+.property-info {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.price {
+    padding-top: 10px;
+    width: 96.08px;
+    height: 18px;
+    top: initial;  
+    font-family: Righteous;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 150%;
+    
+    color: #000000;
+}
+.info {
+    display: flex;
+   
+    justify-content: space-between;
+    margin: auto;
+    
+}
+.moreinfo {
+    display: inline;
+    justify-content: space-between;
+    align-items: center;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 108%;
+    line-height: 14px;
+}
+.full-address {
+    display: inline;
+    justify-content: flex-start;
+    align-items: center;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 108%;
+    line-height: 14px;
+font-family: Rasa;
+font-style: normal;
+font-weight: normal;
+font-size: 133%;
+line-height: 22px;
+margin: auto;
+}
+
+

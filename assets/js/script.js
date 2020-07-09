@@ -77,12 +77,35 @@ var addOneMarker = function(markerLatLng, houseInfo){
         scaledSize: new google.maps.Size(30, 30)
     };
 
+    var infoWindowDiv = document.createElement("div");
+    infoWindowDiv.setAttribute("data-lat", markerLatLng.lat);
+    infoWindowDiv.setAttribute("data-lng", markerLatLng.lng);
+    infoWindowDiv.innerHTML = "<img src = '" + houseInfo.photos[0].href + "' alt= '" + houseInfo.line + "' />" +
+    "<p>$" + houseInfo.price + "</p>" + 
+    "<p>" + houseInfo.line + ", " + houseInfo.city + ", " + houseInfo.state + "</p>" + 
+    "<p>" + houseInfo.beds + " bd / " + houseInfo.baths + " ba / " + houseInfo.building_size + " " + houseInfo.building_size_units + "</p>" +
+    "<a class='button success small' href='#'> GO </a>"; 
+
+    var infowindow = new google.maps.InfoWindow({
+        enableEventPropagation: true
+    });
+    infowindow.setContent(infoWindowDiv);
+
     var marker = new google.maps.Marker({
         position: markerLatLng,
         map: map,
         title: "Address: " + houseInfo.line + "; Price: $" + houseInfo.price,
         icon: imageIcon
       });
+    marker.addListener("click", function(){
+        infowindow.open(map,marker);
+    });
+
+    google.maps.event.addDomListener(infoWindowDiv, 'click', function(event){
+        if (event.target.className == "button success small")
+            calcRoute({lat: parseFloat(event.target.closest("div").getAttribute("data-lat")), 
+                    lng: parseFloat(event.target.closest("div").getAttribute("data-lng")) });
+    } );
 }
 
 //Read Houses List from Local Storage and put them on the map
@@ -112,18 +135,34 @@ var addMarkers = function(){
 }
 
 // Calculate Route and put it on the map
-var calcRoute = function(startCoord, destCoord){
-    var request = {
-        origin : startCoord,
-        destination : destCoord,
-        travelMode : 'DRIVING'
-    };
+var calcRoute = function(destCoord){
 
-    directionsService.route(request, function(result, status){
-        if (status == 'OK'){
-            directionsRenderer.setDirections(result);
-        }
-    });
+    directionsService = new google.maps.DirectionsService();
+    directionsRenderer = new google.maps.DirectionsRenderer();
+    directionsRenderer.setMap(map);
+
+    if (navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(function(position){
+            var currentLocation = {
+                lat : position.coords.latitude, lng : position.coords.longitude
+            };
+
+            var request = {
+                origin : currentLocation,
+                destination : destCoord,
+                travelMode : 'DRIVING'
+            };
+        
+            directionsService.route(request, function(result, status){
+                if (status == 'OK'){
+                    directionsRenderer.setDirections(result);
+                }
+            });
+        
+        });
+    }
+    else
+        console.log("Browser does not support Geolocation!");
 }
 
 // Initialize map
@@ -139,65 +178,16 @@ var initMap = function(coordinates, houseInfo) {
             zoom : 15
         });
 
-        if (!coordinates) // put all houses on the map
-            map.setCenter(addMarkers());
-        else{  // put just this one house on the map and give directions from the current location
-            addOneMarker(coordinates, houseInfo);
-            directionsService = new google.maps.DirectionsService();
-            directionsRenderer = new google.maps.DirectionsRenderer();
-            map.setCenter(coordinates);
-            directionsRenderer.setMap(map);
-
-            if (navigator.geolocation){
-                navigator.geolocation.getCurrentPosition(function(position){
-                    var currentLocation = {
-                        lat : position.coords.latitude, lng : position.coords.longitude
-                    };
-                    calcRoute(currentLocation, coordinates);
-                });
-            }
-            else
-                console.log("Browser does not support Geolocation!");
-        }
+        map.setCenter(addMarkers());
     }
 
     document.head.appendChild(script);
 }
 
-// Initilize map for one listing (with direction from current location)
-var initMapOneListing = function(){
 
-    var queryString = document.location.search;
-
-    const urlParams = new URLSearchParams(location.search);
-
-    var coordinates = {};
-    var houseInfo = {};
-
-    for (const entry of urlParams.entries()) {
-        if (entry[0] == "lat")
-            coordinates.lat = parseFloat(entry[1]);
-        if (entry[0] == "lng")
-            coordinates.lng = parseFloat(entry[1]);
-        if (entry[0] == "line")
-            houseInfo.line = entry[1];
-        if (entry[0] == "price")
-            houseInfo.price = parseInt(entry[1]);
-    }
-
-    initMap(coordinates, houseInfo);
-}
-
-
-
-
-
-// call to put multiple listing on the map; list of houses is taken from the local storage
+// call to put multiple listings on the map; list of houses is taken from the local storage
 initMap(); 
 
-// To put one listing on the map open index.html with the parameters: 
-// index.html?lat=30.427406&lng=-97.72106&line=4519%20Sidereal%20Dr&price=2100
-//initMapOneListing();
- 
 // call to get rental houses list for zip code, city and state (and optional radius); the list is saved to local storage;
 //getHousesList(78727,'Austin','TX'); 
+
