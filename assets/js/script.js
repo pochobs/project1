@@ -196,8 +196,9 @@ $( ".button" ).click(function( event ) {
     var searchState = document.querySelector("#search-state").value;
     var searchZipcode = document.querySelector("#search-zipcode").value;
     console.log(searchZipcode, searchCity, searchState,)
-    initMap();
     getHousesList(searchZipcode, searchCity, searchState);
+    initMap();
+    
 
 });
 
