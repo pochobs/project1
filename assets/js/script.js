@@ -2,9 +2,7 @@ var rentListArr = []; // this array hold all houses returned by Realtor API for 
 var map; // used by google maps
 var directionsService; // used by google maps
 var directionsRenderer; // used by google maps
-var ulEl = document.querySelector("#main ul");
-var searchSubmit = document.querySelector("input-group");
-// var submitInputs = document.querySelector("#btn");
+var oldDirectionRenderer;
 
 // API to get list of houses by zip code, city, state and radius
 // It searches only single_family houses
@@ -30,6 +28,7 @@ var getHousesList = function(postal_code, city, state_code, radius){
         if (response.ok) {
             response.json().then(function(data){
                 console.log(data);
+                rentListArr = [];
                 for (i=0; i< data.meta.returned_rows; i++){
                     var house = {
                         city : data.properties[i].address.city,
@@ -52,6 +51,7 @@ var getHousesList = function(postal_code, city, state_code, radius){
                 }
 
                 localStorage.setItem("FetchedHouses", JSON.stringify(rentListArr));
+                initMap();
             })
         }
         else {
@@ -83,7 +83,10 @@ var addOneMarker = function(markerLatLng, houseInfo){
     var infoWindowDiv = document.createElement("div");
     infoWindowDiv.setAttribute("data-lat", markerLatLng.lat);
     infoWindowDiv.setAttribute("data-lng", markerLatLng.lng);
-    infoWindowDiv.innerHTML = "<img src = '" + houseInfo.photos[0].href + "' alt= '" + houseInfo.line + "' />" +
+    var href = "#";
+    if (houseInfo.photos[0])
+        href = houseInfo.photos[0].href;
+    infoWindowDiv.innerHTML = "<img src = '" + href + "' alt= '" + houseInfo.line + "' />" +
     "<p>$" + houseInfo.price + "</p>" + 
     "<p>" + houseInfo.line + ", " + houseInfo.city + ", " + houseInfo.state + "</p>" + 
     "<p>" + houseInfo.beds + " bd / " + houseInfo.baths + " ba / " + houseInfo.building_size + " " + houseInfo.building_size_units + "</p>" +
@@ -113,6 +116,7 @@ var addOneMarker = function(markerLatLng, houseInfo){
 
 //Read Houses List from Local Storage and put them on the map
 var addMarkers = function(){
+
     if (rentListArr.length==0)
         readHousesList();
 
@@ -140,6 +144,9 @@ var addMarkers = function(){
 // Calculate Route and put it on the map
 var calcRoute = function(destCoord){
 
+    if (oldDirectionRenderer)
+        oldDirectionRenderer.setMap(null);
+
     directionsService = new google.maps.DirectionsService();
     directionsRenderer = new google.maps.DirectionsRenderer();
     directionsRenderer.setMap(map);
@@ -166,6 +173,8 @@ var calcRoute = function(destCoord){
     }
     else
         console.log("Browser does not support Geolocation!");
+
+    oldDirectionRenderer = directionsRenderer;
 }
 
 // Initialize map
@@ -187,25 +196,23 @@ var initMap = function(coordinates, houseInfo) {
     document.head.appendChild(script);
 }
 
-
 $( ".button" ).click(function( event ) {
-//     alert( "Handler for .submit() called." );
-    // var submitedValues = function() { 
-    event.preventDefault();        
-    var searchCity = document.querySelector("#search-city").value;
-    var searchState = document.querySelector("#search-state").value;
-    var searchZipcode = document.querySelector("#search-zipcode").value;
-    console.log(searchZipcode, searchCity, searchState,)
-    getHousesList(searchZipcode, searchCity, searchState);
-    initMap();
+    //     alert( "Handler for .submit() called." );
+        // var submitedValues = function() { 
+        event.preventDefault();        
+        var searchCity = document.querySelector("#search-city").value;
+        var searchState = document.querySelector("#search-state").value;
+        var searchZipcode = document.querySelector("#search-zipcode").value;
+        console.log(searchZipcode, searchCity, searchState,)
+        getHousesList(searchZipcode, searchCity, searchState);
+        //initMap();
+        
     
-
 });
 
-  
 // call to put multiple listings on the map; list of houses is taken from the local storage
-// initMap(); 
+initMap(); 
 
 // call to get rental houses list for zip code, city and state (and optional radius); the list is saved to local storage;
-// getHousesList(78727,'Austin','TX'); 
-// searchSubmit.addEventListener("submit", submitedValues);
+//getHousesList(78727,'Austin','TX'); 
+
