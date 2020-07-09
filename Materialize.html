@@ -3,29 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Materialize CSS</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css" />
-    <link rel="stylesheet" href="./assets/css/materialize.css">
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <
+        <title>Disable submit example</title>
+      </head>
       
+      <body>
+        <form id="mform1" name="mform1" enctype="multipart/form-data" method="post" >
+          <input type=file><br />
+          Name: <input type="text" ><br />
+          <input type="button" value="just a button"><br />
+          <input type="submit" value="submit" >
+          <input type="submit" value="submit and view">
+        </form>
+        
+        <script>
+          //Cross browser add listener
+          // http://stackoverflow.com/questions/10149963/adding-event-listener-cross-browser
+          function addEvent(elem, event, fn) {
+            function listenHandler(e) {
+              var ret = fn.apply(this, arguments);
+              if (ret === false) {
+                e.stopPropagation();
+                e.preventDefault();
+              }
+              return(ret);
+            }
             
-</head>
-<body>
-   
-        <div class="pure-g nav-wrapper blue lighten-3">
-             <div class="pure-u-1 pure-u-md-1-3 searchwithicon">
-                <input type="text" name="search" class="search" placeholder="City, State, Zip Code">
-                <i id="searchicon"></i>
-            </div>
-        </div>
-      
-    
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</body>
-</html>
+            function attachHandler() {
+              var ret = fn.call(elem, window.event);   
+              if (ret === false) {
+                window.event.returnValue = false;
+                window.event.cancelBubble = true;
+              }
+              return(ret);
+            }
+            
+            if (elem.addEventListener) {
+              elem.addEventListener(event, listenHandler, false);
+            } else {
+              elem.attachEvent("on" + event, attachHandler);
+            }
+          }    
+          
+          function submitWait(){
+            for (i = 0; i < inputs.length; i++) {
+              formElement = myForm.elements[i];
+              if (formElement.type == "submit") {
+                formElement.disabled = true;
+              }
+            }
+            return false;
+          }
+          
+          var myForm = document.getElementById("mform1");
+          var inputs = document.getElementsByTagName('input');
+          addEvent( myForm, 'submit', submitWait );
+        </script>
+      </body>
+    </html>

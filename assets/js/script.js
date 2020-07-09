@@ -191,9 +191,24 @@ var initMap = function(coordinates, houseInfo) {
 }
 
 
+$( ".button" ).click(function( event ) {
+//     alert( "Handler for .submit() called." );
+    // var submitedValues = function() { 
+    event.preventDefault();        
+    var searchCity = document.querySelector("#search-city").value;
+    var searchState = document.querySelector("#search-state").value;
+    var searchZipcode = document.querySelector("#search-zipcode").value;
+    console.log(searchZipcode, searchCity, searchState,)
+    getHousesList(searchZipcode, searchCity, searchState);
+    initMap();
+    
+
+});
+
+  
 // call to put multiple listings on the map; list of houses is taken from the local storage
-initMap(); 
+// initMap(); 
 
 // call to get rental houses list for zip code, city and state (and optional radius); the list is saved to local storage;
-//getHousesList(78727,'Austin','TX'); 
-
+// getHousesList(78727,'Austin','TX'); 
+// searchSubmit.addEventListener("submit", submitedValues);
