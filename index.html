@@ -12,11 +12,11 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 </head>
 <body>
-  <div class="mobile-app-icon-bar">
-    <input type="search" name="search" placeholder="Search City.." >
-    <input type="search" name="search" placeholder="Search State">
-    <input type="search" name="search" placeholder="Search Zipcode">
-    <button type="submit"><a href="#features" class="button">View All Features</a></button>
+  <div id="searchbox" class="mobile-app-icon-bar">
+    <input type="search" name="search" id="search-city" placeholder="Search City.." >
+    <input type="search" name="search" id="search-state" placeholder="Search State..">
+    <input type="search" name="search" id="search-zipcode" placeholder="Search Zipcode..">
+    <button id="submit-btn" type="submit"><a class="button">View All Features</a></button>
   </div>
   <div id="map"></div>
   <div class="travel-feature-card">

@@ -3,7 +3,8 @@ var map; // used by google maps
 var directionsService; // used by google maps
 var directionsRenderer; // used by google maps
 var ulEl = document.querySelector("#main ul");
-
+var searchClick = document.getElementById("searchbox");
+var submitInputs = document.getElementById("submit-btn");
 // API to get list of houses by zip code, city, state and radius
 // It searches only single_family houses
 // It saves fetched results to local Storage 
@@ -201,9 +202,19 @@ var initMapOneListing = function(){
     initMap(coordinates, houseInfo);
 }
 
+    var getInputValue = function() {
+        
+    var searchCity = document.getElementById("search-city").value;
+    var searchState = document.getElementById("search-state").value;
+    var searchZipcode = document.getElementById("search-zipcode").value;
+    console.log(searchCity,searchState, searchZipcode)
+    initMap();
+    getHousesList(searchCity, searchState, searchZipcode);
+}
 
+    submitInputs.addEventListener("submit", getInputValue)
 // call to put multiple listings on the map; list of houses is taken from the local storage
-initMap(); 
+// initMap(); 
 
 // To put one listing on the map open index.html with the parameters: 
 // index.html?lat=30.427406&lng=-97.72106&line=4519%20Sidereal%20Dr&price=2100
