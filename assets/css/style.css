@@ -2,9 +2,9 @@
   position: relative;
 }
 .card-section {
-  position: relative;
+  /* position: relative;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; */
 }
 div .price {
  
@@ -18,6 +18,9 @@ div .price {
   
 }
 img {
-  height: 55px;
+  height: 95px;
   width: auto;
 }
+.call-out (
+  
+)
