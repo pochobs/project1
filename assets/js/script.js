@@ -71,6 +71,12 @@ var readHousesList = function(){
     }
 }
 
+function infowindowclicked(event){
+    console.log ("inside infowindowclicked");
+    var latlng = markerLatLng;
+    console.log (latlng);
+}
+
 //Add one marker on the map
 var addOneMarker = function(markerLatLng, houseInfo){
     var imageIcon = {
@@ -84,7 +90,8 @@ var addOneMarker = function(markerLatLng, houseInfo){
         "<p>" + houseInfo.beds + " bd/" + houseInfo.baths + " ba/" + houseInfo.building_size + " " + houseInfo.building_size_units + "</p>" + 
         "</div>";
     var infowindow = new google.maps.InfoWindow({
-        content : contentString
+        content : contentString,
+        enableEventPropagation: true
     });
 
     var marker = new google.maps.Marker({
@@ -96,6 +103,7 @@ var addOneMarker = function(markerLatLng, houseInfo){
     marker.addListener("click", function(){
         infowindow.open(map,marker);
     })
+    
 }
 
 //Read Houses List from Local Storage and put them on the map
