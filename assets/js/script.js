@@ -83,7 +83,10 @@ var addOneMarker = function(markerLatLng, houseInfo){
     var infoWindowDiv = document.createElement("div");
     infoWindowDiv.setAttribute("data-lat", markerLatLng.lat);
     infoWindowDiv.setAttribute("data-lng", markerLatLng.lng);
-    infoWindowDiv.innerHTML = "<img src = '" + houseInfo.photos[0].href + "' alt= '" + houseInfo.line + "' />" +
+    var href = "#";
+    if (houseInfo.photos[0])
+        href = houseInfo.photos[0].href;
+    infoWindowDiv.innerHTML = "<img src = '" + href + "' alt= '" + houseInfo.line + "' />" +
     "<p>$" + houseInfo.price + "</p>" + 
     "<p>" + houseInfo.line + ", " + houseInfo.city + ", " + houseInfo.state + "</p>" + 
     "<p>" + houseInfo.beds + " bd / " + houseInfo.baths + " ba / " + houseInfo.building_size + " " + houseInfo.building_size_units + "</p>" +
