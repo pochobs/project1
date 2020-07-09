@@ -3,8 +3,8 @@ var map; // used by google maps
 var directionsService; // used by google maps
 var directionsRenderer; // used by google maps
 var ulEl = document.querySelector("#main ul");
-var searchClick = document.getElementById("searchbox");
-var submitInputs = document.getElementById("submit-btn");
+var searchSubmit = document.querySelector("input-group");
+// var submitInputs = document.querySelector("#btn");
 // API to get list of houses by zip code, city, state and radius
 // It searches only single_family houses
 // It saves fetched results to local Storage 
@@ -202,17 +202,21 @@ var initMapOneListing = function(){
     initMap(coordinates, houseInfo);
 }
 
-    var getInputValue = function() {
-        
-    var searchCity = document.getElementById("search-city").value;
-    var searchState = document.getElementById("search-state").value;
-    var searchZipcode = document.getElementById("search-zipcode").value;
-    console.log(searchCity,searchState, searchZipcode)
-    initMap();
-    getHousesList(searchCity, searchState, searchZipcode);
-}
 
-    submitInputs.addEventListener("submit", getInputValue)
+$( ".button" ).click(function( event ) {
+//     alert( "Handler for .submit() called." );
+    // var submitedValues = function() { 
+    event.preventDefault();        
+    var searchCity = document.querySelector("#search-city").value;
+    var searchState = document.querySelector("#search-state").value;
+    var searchZipcode = document.querySelector("#search-zipcode").value;
+    console.log(searchCity, searchState, searchZipcode)
+    initMap();
+    // getHousesList(searchCity, searchState, searchZipcode);
+
+});
+
+  
 // call to put multiple listings on the map; list of houses is taken from the local storage
 // initMap(); 
 
@@ -221,5 +225,5 @@ var initMapOneListing = function(){
 //initMapOneListing();
  
 // call to get rental houses list for zip code, city and state (and optional radius); the list is saved to local storage;
-//getHousesList(78727,'Austin','TX'); 
-
+// //getHousesList(78727,'Austin','TX'); 
+// searchSubmit.addEventListener("submit", submitedValues);
