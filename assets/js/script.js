@@ -52,6 +52,7 @@ var getHousesList = function(postal_code, city, state_code, radius){
 
                 localStorage.setItem("FetchedHouses", JSON.stringify(rentListArr));
                 initMap();
+                document.querySelector("#value-btn").style.cursor = "pointer";
             })
         }
         else {
@@ -108,7 +109,6 @@ var addOneMarker = function(markerLatLng, houseInfo){
     });
 
     google.maps.event.addDomListener(infoWindowDiv, 'click', function(event){
-        debugger;
         if (event.target.className.includes("button primary small"))
             calcRoute({lat: parseFloat(event.target.closest("div").getAttribute("data-lat")), 
                     lng: parseFloat(event.target.closest("div").getAttribute("data-lng")) });
@@ -121,23 +121,32 @@ var addMarkers = function(){
     if (rentListArr.length==0)
         readHousesList();
 
-    // coordinates to center the map on - calculated in the for loop
-    var coords = {
-        lat : 0,
-        lng : 0
+    if (rentListArr.length > 0){
+
+        // coordinates to center the map on - calculated in the for loop
+        var coords = {
+            lat : 0,
+            lng : 0
+        }
+
+        for (i=0; i< rentListArr.length; i++ ){
+            var markerLatLng = { lat: rentListArr[i].lat, lng: rentListArr[i].lon };
+    
+            coords.lat += rentListArr[i].lat;
+            coords.lng += rentListArr[i].lon;
+    
+            addOneMarker(markerLatLng, rentListArr[i]);
+        }
+    
+        coords.lat = coords.lat / rentListArr.length;
+        coords.lng = coords.lng / rentListArr.length;
     }
+    else // center on the downtown Austin
+        var coords = {
+            lat : 30.2729,
+            lng : -97.7444
+        }
 
-    for (i=0; i<rentListArr.length; i++ ){
-        var markerLatLng = { lat: rentListArr[i].lat, lng: rentListArr[i].lon };
-
-        coords.lat += rentListArr[i].lat;
-        coords.lng += rentListArr[i].lon;
-
-        addOneMarker(markerLatLng, rentListArr[i]);
-    }
-
-    coords.lat = coords.lat / rentListArr.length;
-    coords.lng = coords.lng / rentListArr.length;
     
     return coords;
 }
@@ -202,7 +211,8 @@ $( ".button" ).click(function( event ) {
         var searchCity = document.querySelector("#search-city").value;
         var searchState = document.querySelector("#search-state").value;
         var searchZipcode = document.querySelector("#search-zipcode").value;
-        console.log(searchZipcode, searchCity, searchState,)
+        var btnEl = document.querySelector("#value-btn");
+        btnEl.style.cursor = "progress";
         getHousesList(searchZipcode, searchCity, searchState);
 });
 
