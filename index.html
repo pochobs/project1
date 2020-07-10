@@ -11,16 +11,18 @@
 </head>
 <body>
   <div data-sticky-container>
-    <div class="top-bar" data-sticky data-options="marginTop:0;" style="width:100%" data-top-anchor="1" data-btm-anchor="content:bottom">
-      <div class="input-group">
-        <span class="input-group-label">City</span>
-        <input id="search-city" class="input-group-field" type="text" placeholder="Search City..">
-        <span  class="input-group-label">State</span>
-        <input id="search-state" class="input-group-field" type="text" placeholder="Search State..">
-        <span  class="input-group-label" >Zipcode</span>
-        <input id="search-zipcode" class="input-group-field" type="text" placeholder="Search Zipcode..">
-        <div  class="input-group-button">
-          <input id="value-btn" type="submit" name="submit" class="button">
+    <div class="top-bar grid-y gride frame" data-sticky data-options="marginTop:0;" style="width:100%" data-top-anchor="1" data-btm-anchor="content:bottom">
+      <div class="cell shrink header input-group">
+        <div class="grid-x grid-margin-x cell auto">
+          <span class="cell small auto input-group-label">City</span>
+          <input id="search-city" class="cell small-10 input-group-field" type="text" placeholder="Search City..">
+          <span  class="cell autoinput-group-label">State</span>
+          <input id="search-state" class="cell small-10 sinput-group-field" type="text" placeholder="Search State..">
+          <span  class="cell auto input-group-label" >Zipcode</span>
+          <input id="search-zipcode" class="cell small-10input-group-field" type="text" placeholder="Search Zipcode..">
+          <div  class="input-group-button">
+            <input id="value-btn" type="submit" name="submit" class="cell auto button small-3 ">
+          </div>
         </div>
       </div>
     </div>
