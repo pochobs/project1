@@ -12,7 +12,7 @@ img {
   left: 0;
   width: 100%;
   background: #f6f6f6;
-  z-index: auto;
+  z-index: 999;
   height: 90px;
   overflow: hidden;
   -webkit-transition: height 0.3s;
@@ -22,3 +22,4 @@ img {
   .top-bar.cbp-af-header-shrink {
     height: 75px;
     }
+    
