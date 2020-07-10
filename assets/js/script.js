@@ -3,7 +3,7 @@ var map; // used by google maps
 var directionsService; // used by google maps
 var directionsRenderer; // used by google maps
 var oldDirectionRenderer;
-
+// var elem = new Foundation.Sticky(element, options);
 // API to get list of houses by zip code, city, state and radius
 // It searches only single_family houses
 // It saves fetched results to local Storage 
@@ -81,13 +81,12 @@ var addOneMarker = function(markerLatLng, houseInfo){
     };
 
     var infoWindowDiv = document.createElement("div");
-    infoWindowDiv.className = "call-out";
     infoWindowDiv.setAttribute("data-lat", markerLatLng.lat);
     infoWindowDiv.setAttribute("data-lng", markerLatLng.lng);
     var href = "#";
     if (houseInfo.photos[0])
         href = houseInfo.photos[0].href;
-    infoWindowDiv.innerHTML = "<img class='float-center' src = '" + href + "' alt= '" + houseInfo.line + "' />" +
+    infoWindowDiv.innerHTML = "<img src = '" + href + "' alt= '" + houseInfo.line + "' />" +
     "<p>$" + houseInfo.price + "</p>" + 
     "<p>" + houseInfo.line + ", " + houseInfo.city + ", " + houseInfo.state + "</p>" + 
     "<p>" + houseInfo.beds + " bd / " + houseInfo.baths + " ba / " + houseInfo.building_size + " " + houseInfo.building_size_units + "</p>" +
@@ -215,5 +214,4 @@ $( ".button" ).click(function( event ) {
 initMap(); 
 
 // call to get rental houses list for zip code, city and state (and optional radius); the list is saved to local storage;
-//getHousesList(78727,'Austin','TX'); 
-
+//getHousesList(78727,'Austin','TX'); var elem = new Foundation.Sticky(element, options);
