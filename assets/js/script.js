@@ -76,22 +76,21 @@ var readHousesList = function(){
 //Add one marker on the map
 var addOneMarker = function(markerLatLng, houseInfo){
     var imageIcon = {
-        url: "http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png", 
+        url: "https://img.icons8.com/doodle/48/000000/home--v1.png", 
         scaledSize: new google.maps.Size(30, 30)
     };
 
     var infoWindowDiv = document.createElement("div");
-    infoWindowDiv.className = "call-out";
     infoWindowDiv.setAttribute("data-lat", markerLatLng.lat);
     infoWindowDiv.setAttribute("data-lng", markerLatLng.lng);
     var href = "#";
     if (houseInfo.photos[0])
         href = houseInfo.photos[0].href;
-    infoWindowDiv.innerHTML = "<img class='float-center' src = '" + href + "' alt= '" + houseInfo.line + "' />" +
-    "<p>$" + houseInfo.price + "</p>" + 
-    "<p>" + houseInfo.line + ", " + houseInfo.city + ", " + houseInfo.state + "</p>" + 
-    "<p>" + houseInfo.beds + " bd / " + houseInfo.baths + " ba / " + houseInfo.building_size + " " + houseInfo.building_size_units + "</p>" +
-    "<a class='button success small' href='#'> GO </a>"; 
+    infoWindowDiv.innerHTML = "<img class='float-center marginBottom iconImage' src = '" + href + "' alt= '" + houseInfo.line + "' />" +
+    "<p class='pInfoWindow' >$" + houseInfo.price + "</p>" + 
+    "<p class='pInfoWindow' >" + houseInfo.line + ", " + houseInfo.city + ", " + houseInfo.state + "</p>" + 
+    "<p class='pInfoWindow' >" + houseInfo.beds + " bd / " + houseInfo.baths + " ba / " + houseInfo.building_size + " " + houseInfo.building_size_units + "</p>" +
+    "<a class='button primary small float-center marginTop' href='#'> Take me here </a>"; 
 
     var infowindow = new google.maps.InfoWindow({
         enableEventPropagation: true
@@ -109,7 +108,8 @@ var addOneMarker = function(markerLatLng, houseInfo){
     });
 
     google.maps.event.addDomListener(infoWindowDiv, 'click', function(event){
-        if (event.target.className == "button success small")
+        debugger;
+        if (event.target.className.includes("button primary small"))
             calcRoute({lat: parseFloat(event.target.closest("div").getAttribute("data-lat")), 
                     lng: parseFloat(event.target.closest("div").getAttribute("data-lng")) });
     } );

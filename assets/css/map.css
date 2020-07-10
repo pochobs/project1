@@ -16,7 +16,8 @@
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    /*font-family: Verdana, Geneva, Tahoma, sans-serif;*/
+    font-family: Helvetica, Arial, sans-serif;
   }
 
   #searchBar, header, footer{
@@ -31,9 +32,9 @@
     padding-top: 1rem;
   }
 
-  img {
+  .iconImage {
     height: 95px;
-    width: 125px;
+    width: auto;
   }
 
   footer{
@@ -54,5 +55,20 @@
   }
 
   h5{
-    padding: 5px 0 5px 0;
+    padding: 10px 0 10px 0;
+  }
+
+  .pInfoWindow{
+    width:100%;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 0px;
+  }
+
+  .marginTop{
+    margin-top: 10px;
+  }
+
+  .marginBottom{
+    margin-bottom: 10px;
   }
