@@ -52,6 +52,7 @@ var getHousesList = function(postal_code, city, state_code, radius){
 
                 localStorage.setItem("FetchedHouses", JSON.stringify(rentListArr));
                 initMap();
+                document.querySelector("#value-btn").style.cursor = "pointer";
             })
         }
         else {
@@ -76,7 +77,7 @@ var readHousesList = function(){
 //Add one marker on the map
 var addOneMarker = function(markerLatLng, houseInfo){
     var imageIcon = {
-        url: "http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png", 
+        url: "https://img.icons8.com/doodle/48/000000/home--v1.png", 
         scaledSize: new google.maps.Size(30, 30)
     };
 
@@ -86,11 +87,11 @@ var addOneMarker = function(markerLatLng, houseInfo){
     var href = "#";
     if (houseInfo.photos[0])
         href = houseInfo.photos[0].href;
-    infoWindowDiv.innerHTML = "<img src = '" + href + "' alt= '" + houseInfo.line + "' />" +
-    "<p>$" + houseInfo.price + "</p>" + 
-    "<p>" + houseInfo.line + ", " + houseInfo.city + ", " + houseInfo.state + "</p>" + 
-    "<p>" + houseInfo.beds + " bd / " + houseInfo.baths + " ba / " + houseInfo.building_size + " " + houseInfo.building_size_units + "</p>" +
-    "<a class='button success small' href='#'> GO </a>"; 
+    infoWindowDiv.innerHTML = "<img class='float-center marginBottom iconImage' src = '" + href + "' alt= '" + houseInfo.line + "' />" +
+    "<p class='pInfoWindow' >$" + houseInfo.price + "</p>" + 
+    "<p class='pInfoWindow' >" + houseInfo.line + ", " + houseInfo.city + ", " + houseInfo.state + "</p>" + 
+    "<p class='pInfoWindow' >" + houseInfo.beds + " bd / " + houseInfo.baths + " ba / " + houseInfo.building_size + " " + houseInfo.building_size_units + "</p>" +
+    "<a class='button primary small float-center marginTop' href='#'> Take me here </a>"; 
 
     var infowindow = new google.maps.InfoWindow({
         enableEventPropagation: true
@@ -108,7 +109,7 @@ var addOneMarker = function(markerLatLng, houseInfo){
     });
 
     google.maps.event.addDomListener(infoWindowDiv, 'click', function(event){
-        if (event.target.className == "button success small")
+        if (event.target.className.includes("button primary small"))
             calcRoute({lat: parseFloat(event.target.closest("div").getAttribute("data-lat")), 
                     lng: parseFloat(event.target.closest("div").getAttribute("data-lng")) });
     } );
@@ -120,23 +121,32 @@ var addMarkers = function(){
     if (rentListArr.length==0)
         readHousesList();
 
-    // coordinates to center the map on - calculated in the for loop
-    var coords = {
-        lat : 0,
-        lng : 0
+    if (rentListArr.length > 0){
+
+        // coordinates to center the map on - calculated in the for loop
+        var coords = {
+            lat : 0,
+            lng : 0
+        }
+
+        for (i=0; i< rentListArr.length; i++ ){
+            var markerLatLng = { lat: rentListArr[i].lat, lng: rentListArr[i].lon };
+    
+            coords.lat += rentListArr[i].lat;
+            coords.lng += rentListArr[i].lon;
+    
+            addOneMarker(markerLatLng, rentListArr[i]);
+        }
+    
+        coords.lat = coords.lat / rentListArr.length;
+        coords.lng = coords.lng / rentListArr.length;
     }
+    else // center on the downtown Austin
+        var coords = {
+            lat : 30.2729,
+            lng : -97.7444
+        }
 
-    for (i=0; i<rentListArr.length; i++ ){
-        var markerLatLng = { lat: rentListArr[i].lat, lng: rentListArr[i].lon };
-
-        coords.lat += rentListArr[i].lat;
-        coords.lng += rentListArr[i].lon;
-
-        addOneMarker(markerLatLng, rentListArr[i]);
-    }
-
-    coords.lat = coords.lat / rentListArr.length;
-    coords.lng = coords.lng / rentListArr.length;
     
     return coords;
 }
@@ -197,17 +207,13 @@ var initMap = function(coordinates, houseInfo) {
 }
 
 $( ".button" ).click(function( event ) {
-    //     alert( "Handler for .submit() called." );
-        // var submitedValues = function() { 
         event.preventDefault();        
         var searchCity = document.querySelector("#search-city").value;
         var searchState = document.querySelector("#search-state").value;
         var searchZipcode = document.querySelector("#search-zipcode").value;
-        console.log(searchZipcode, searchCity, searchState,)
+        var btnEl = document.querySelector("#value-btn");
+        btnEl.style.cursor = "progress";
         getHousesList(searchZipcode, searchCity, searchState);
-        //initMap();
-        
-    
 });
 
 // call to put multiple listings on the map; list of houses is taken from the local storage

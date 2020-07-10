@@ -1,10 +1,73 @@
-#map {
+
+  #map {
     margin: 10px;
-    height: 70%;
-    z-index: auto;
+    height: 100%;
   }
+  
+  :root {
+    --primary: darkgrey;
+  }
+
   html, body {
     height: 100%;
-    margin: 0;
+    width: 100%;
+    margin: auto;
     padding: 0;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
+  #searchBar, header, footer{
+    background-color: var(--primary);
+  }
+
+  form{
+    width: 100%;
+  }
+
+  .form-class{
+    padding-top: 1rem;
+  }
+
+  .iconImage {
+    height: 95px;
+    width: auto;
+  }
+
+  footer{
+    text-align: center;
+  }
+
+  header h1, header h4{
+    display: inline-block;
+  }
+
+  h1{
+    font-family: 'Notable', sans-serif;
+    margin-left: 20px;;
+  }
+
+  h4, h5{
+    font-family: 'Berkshire Swash', cursive;
+  }
+
+  h5{
+    padding: 10px 0 10px 0;
+  }
+
+  .pInfoWindow{
+    width:100%;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 0px;
+  }
+
+  .marginTop{
+    margin-top: 10px;
+  }
+
+  .marginBottom{
+    margin-bottom: 10px;
   }
