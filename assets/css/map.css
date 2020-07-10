@@ -1,6 +1,7 @@
 #map {
     margin: 10px;
     height: 70%;
+    z-index: auto;
   }
   html, body {
     height: 100%;

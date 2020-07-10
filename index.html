@@ -10,20 +10,24 @@
     <title>Rentz</title>
 </head>
 <body>
-  <div class="top-bar flex-container align-justify align-bottom">
-    <div class="input-group">
-      <span class="input-group-label">City</span>
-      <input id="search-city" class="input-group-field" type="text" placeholder="Search City..">
-      <span  class="input-group-label">State</span>
-      <input id="search-state" class="input-group-field" type="text" placeholder="Search State..">
-      <span  class="input-group-label" >Zipcode</span>
-      <input id="search-zipcode" class="input-group-field" type="text" placeholder="Search Zipcode..">
-      <div  class="input-group-button">
-        <input id="value-btn" type="submit" name="submit" class="button">
+  <div data-sticky-container>
+    <div class="top-bar" data-sticky data-options="marginTop:0;" style="width:100%" data-top-anchor="1" data-btm-anchor="content:bottom">
+      <div class="input-group">
+        <span class="input-group-label">City</span>
+        <input id="search-city" class="input-group-field" type="text" placeholder="Search City..">
+        <span  class="input-group-label">State</span>
+        <input id="search-state" class="input-group-field" type="text" placeholder="Search State..">
+        <span  class="input-group-label" >Zipcode</span>
+        <input id="search-zipcode" class="input-group-field" type="text" placeholder="Search Zipcode..">
+        <div  class="input-group-button">
+          <input id="value-btn" type="submit" name="submit" class="button">
+        </div>
       </div>
     </div>
   </div>
-  <div id="map"></div>
+  <div style="width:100%;height:800px;padding: 95px 0 0 10px; margin-left: 0;">
+  <div class=" small-12 large-8" id="map"></div>
+</div>
     <div class="column">
       <div class="card call-out">
         <div class="float-left card-divider">
@@ -42,6 +46,11 @@
         </div>
       </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.6.3/js/plugins/foundation.sticky.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.6.3/js/plugins/foundation.util.box.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.6.3/js/plugins/foundation.util.mediaQuery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.6.3/js/plugins/foundation.core.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
   <script
   src="https://code.jquery.com/jquery-3.5.1.slim.js"
   integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM="
