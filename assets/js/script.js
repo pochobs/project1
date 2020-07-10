@@ -212,6 +212,6 @@ $( ".button" ).click(function( event ) {
 
 // call to put multiple listings on the map; list of houses is taken from the local storage
 initMap(); 
-
+fundation()
 // call to get rental houses list for zip code, city and state (and optional radius); the list is saved to local storage;
 //getHousesList(78727,'Austin','TX'); var elem = new Foundation.Sticky(element, options);
