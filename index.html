@@ -4,49 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
-    <link rel="stylesheet" href="./assets/css/style.css" />
     <link rel="stylesheet" href="./assets/css/map.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Notable&display=swap" rel="stylesheet">
 
     <title>Rentz</title>
 </head>
 <body>
-  <div class="top-bar flex-container align-justify align-bottom">
-    <div class="input-group">
-      <span class="input-group-label">City</span>
-      <input id="search-city" class="input-group-field" type="text" placeholder="Search City..">
-      <span  class="input-group-label">State</span>
-      <input id="search-state" class="input-group-field" type="text" placeholder="Search State..">
-      <span  class="input-group-label" >Zipcode</span>
-      <input id="search-zipcode" class="input-group-field" type="text" placeholder="Search Zipcode..">
-      <div  class="input-group-button">
-        <input id="value-btn" type="submit" name="submit" class="button">
-      </div>
-    </div>
-  </div>
-  <div id="map"></div>
-    <div class="column">
-      <div class="card call-out">
-        <div class="float-left card-divider">
-          Total Results <span>: 200</span>
-        </div>
-        <div class="card-section grid-x">
-          <h2 class="price small-6">$500,000</h2>
-          <div class="price small-6 moreinfo float-left flex-container align-justify">
-            <h5 class="bedroom">4 bd</h5>
-            <h5 class="bathroom">4 ba</h5>
-            <h5 class="sqft">5000 sqft</h5>
-          </div>   
-          <h3 class="price small-6 full-address float-left">26626 Willow Ln, Katy, Texas, 77494</h3>
-          <div class="small-6 call-out" >
-          <img class="float-right" src="./assets/img/Front Side 1.jpeg" alt="">             
-        </div>
-        </div>
-      </div>
-    </div>
-  <script
-  src="https://code.jquery.com/jquery-3.5.1.slim.js"
-  integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM="
-  crossorigin="anonymous"></script>
-    <script src="./assets/js/script.js"></script>
+
+    <header>
+      <h1>Rentz</h1>
+      <h4> - find your dream house to rent</h4>
+    </header>
+ 
+    <section id = "searchBar">
+      <form>
+          <div class="grid-x grid-padding-x form-class">
+            
+            <div class="medium-4 cell">
+              <input id="search-city" type="text" placeholder="City..">
+            </div>
+    
+            <div class="medium-2 cell">
+              <input id="search-state" type="text" placeholder="State..">
+            </div>
+
+            <div class="medium-2 cell">
+              <input id="search-zipcode" type="text" placeholder="Zipcode...">
+            </div>
+
+            <div class="medium-2 cell">
+              <button class="submit button primary" id="value-btn">Find Rentals</button>
+            </div>
+    
+          </div>
+      </form>  
+    </section>
+    
+    <div id="map"></div>
+
+    <footer>
+      <h5>❤️ Made with love by Rentz.</h5>
+    </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
+  <script src="./assets/js/script.js"></script>
+
 </body>
 </html>

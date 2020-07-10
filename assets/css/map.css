@@ -1,9 +1,58 @@
-#map {
+
+  #map {
     margin: 10px;
-    height: 70%;
+    height: 100%;
   }
+  
+  :root {
+    --primary: darkgrey;
+  }
+
   html, body {
     height: 100%;
-    margin: 0;
+    width: 100%;
+    margin: auto;
     padding: 0;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
+  #searchBar, header, footer{
+    background-color: var(--primary);
+  }
+
+  form{
+    width: 100%;
+  }
+
+  .form-class{
+    padding-top: 1rem;
+  }
+
+  img {
+    height: 95px;
+    width: 125px;
+  }
+
+  footer{
+    text-align: center;
+  }
+
+  header h1, header h4{
+    display: inline-block;
+  }
+
+  h1{
+    font-family: 'Notable', sans-serif;
+    margin-left: 20px;;
+  }
+
+  h4, h5{
+    font-family: 'Berkshire Swash', cursive;
+  }
+
+  h5{
+    padding: 5px 0 5px 0;
   }
