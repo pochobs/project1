@@ -6,6 +6,7 @@ var oldDirectionRenderer;
 var favorites = []; // creates an array that saves info in localStorage
 if(localStorage.getItem("favorites")){
     favorites.push(JSON.parse(localStorage.getItem("favorites")));
+    console.log(favorites);
 }
 // var elem = new Foundation.Sticky(element, options);
 // API to get list of houses by zip code, city, state and radius
