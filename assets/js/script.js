@@ -34,6 +34,7 @@ var getHousesList = function(postal_code, city, state_code, radius){
                 console.log(data);
                 rentListArr = [];
                 for (i=0; i< data.meta.returned_rows; i++){
+                    
                     var house = {
                         city : data.properties[i].address.city,
                         county: data.properties[i].address.county,
@@ -47,10 +48,18 @@ var getHousesList = function(postal_code, city, state_code, radius){
                         building_size : data.properties[i].building_size.size, 
                         building_size_units : data.properties[i].building_size.units, 
                         price : data.properties[i].price,
-                        year_built: data.properties[i].year_built,
+                        year_built: data.properties[i].year_built,                       
                         photos : data.properties[i].photos
                     }
+                   
+                    if (data.properties[i].community) {
 
+                        house.contact_number = data.properties[i].community.contact_number;
+                        
+                    }
+                    else {
+                        house.contact_number = "";
+                    }
                     rentListArr.push(house);
                 }
 
@@ -93,8 +102,12 @@ var addOneMarker = function(markerLatLng, houseInfo){
     var href = "#";
     if (houseInfo.photos[0])
         href = houseInfo.photos[0].href;
+    var housePrice = 0;
+    if (houseInfo.price) {
+        housePrice = houseInfo.price;
+    }
     infoWindowDiv.innerHTML = "<img class='float-center marginBottom iconImage' src = '" + href + "' alt= '" + houseInfo.line + "' />" +
-    "<p class='pInfoWindow' >$" + houseInfo.price + "</p>" + 
+    "<p class='pInfoWindow' >$" + housePrice + "</p>" + "<p class='pInfoWindow' >Contact Number :" + houseInfo.contact_number + "</p>" 
     "<p class='pInfoWindow' >" + houseInfo.line + ", " + houseInfo.city + ", " + houseInfo.state + "</p>" + 
     "<p class='pInfoWindow' >" + houseInfo.beds + " bd / " + houseInfo.baths + " ba / " + houseInfo.building_size + " " + houseInfo.building_size_units + "</p>" +
     "<a class='button primary small marginTop' href='#'> Take me here </a> <a class='button alert small marginTop' id='saveInfo' data='"+JSON.stringify(houseInfo)+"' href='#'>Add to Favorites</a> <a class='button success small float-bottom-right marginTop' href='#'>Add to Visit List</a>"; 
