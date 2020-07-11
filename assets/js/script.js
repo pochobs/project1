@@ -3,6 +3,10 @@ var map; // used by google maps
 var directionsService; // used by google maps
 var directionsRenderer; // used by google maps
 var oldDirectionRenderer;
+var favorites = []; // creates an array that saves info in localStorage
+if(localStorage.getItem("favorites")){
+    favorites.push(JSON.parse(localStorage.getItem("favorites")));
+}
 // var elem = new Foundation.Sticky(element, options);
 // API to get list of houses by zip code, city, state and radius
 // It searches only single_family houses
@@ -74,13 +78,15 @@ var readHousesList = function(){
     }
 }
 
+
+
 //Add one marker on the map
 var addOneMarker = function(markerLatLng, houseInfo){
     var imageIcon = {
         url: "https://img.icons8.com/doodle/48/000000/home--v1.png", 
         scaledSize: new google.maps.Size(30, 30)
     };
-
+    console.log(houseInfo);
     var infoWindowDiv = document.createElement("div");
     infoWindowDiv.setAttribute("data-lat", markerLatLng.lat);
     infoWindowDiv.setAttribute("data-lng", markerLatLng.lng);
@@ -91,7 +97,8 @@ var addOneMarker = function(markerLatLng, houseInfo){
     "<p class='pInfoWindow' >$" + houseInfo.price + "</p>" + 
     "<p class='pInfoWindow' >" + houseInfo.line + ", " + houseInfo.city + ", " + houseInfo.state + "</p>" + 
     "<p class='pInfoWindow' >" + houseInfo.beds + " bd / " + houseInfo.baths + " ba / " + houseInfo.building_size + " " + houseInfo.building_size_units + "</p>" +
-    "<a class='button primary small float-center marginTop' href='#'> Take me here </a>"; 
+    "<a class='button primary small float-center marginTop' href='#'> Take me here </a> <a class='button alert small float-bottom marginTop' id='saveInfo' data='"+JSON.stringify(houseInfo)+"' href='#'>Add to Favorites</a> <a class='button success small float-bottom-right marginTop' href='#'>Add to Visit List</a>"; 
+    
 
     var infowindow = new google.maps.InfoWindow({
         enableEventPropagation: true
@@ -109,11 +116,20 @@ var addOneMarker = function(markerLatLng, houseInfo){
     });
 
     google.maps.event.addDomListener(infoWindowDiv, 'click', function(event){
+        console.log(event.target.id);
         if (event.target.className.includes("button primary small"))
             calcRoute({lat: parseFloat(event.target.closest("div").getAttribute("data-lat")), 
                     lng: parseFloat(event.target.closest("div").getAttribute("data-lng")) });
+        if (event.target.id == "saveInfo") {
+            favorites.push(JSON.parse(event.target.getAttribute("data")));
+            console.log(favorites);
+            localStorage.setItem("favorites",JSON.stringify(favorites));
+        }
     } );
 }
+
+
+
 
 //Read Houses List from Local Storage and put them on the map
 var addMarkers = function(){
