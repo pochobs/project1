@@ -5,7 +5,8 @@ var directionsRenderer; // used by google maps
 var oldDirectionRenderer;
 var favorites = []; // creates an array that saves info in localStorage
 if(localStorage.getItem("favorites")){
-    favorites.push(JSON.parse(localStorage.getItem("favorites")));
+    //var user = JSON.parse(localStorage.getItem('user'));
+    favorites = JSON.parse(localStorage.getItem("favorites"));
     console.log(favorites);
 }
 // var elem = new Foundation.Sticky(element, options);
