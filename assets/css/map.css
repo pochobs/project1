@@ -71,3 +71,34 @@
   .marginBottom{
     margin-bottom: 10px;
   }
+  #favoritesBar {
+    height: 100%; 
+   width:300px;
+   background-color: antiquewhite;
+   position: absolute;
+   right: 0;
+   top: 0;
+   overflow: scroll;
+ }
+
+ .mapAndFaves {
+   height: 100%;
+   width: 100%;
+   position: relative;
+ }
+
+ .favImg {
+   width: 55px;
+ }
+
+ .favDiv {
+   padding: 10px;
+   border: solid 1px lightgrey ;
+ }
+
+ .favAddress {
+   padding: 15px;
+   font-size: small;
+   right: 0;
+
+ }
