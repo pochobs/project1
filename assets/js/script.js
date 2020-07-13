@@ -5,8 +5,28 @@ var directionsRenderer; // used by google maps
 var oldDirectionRenderer;
 var favorites = []; // creates an array that saves info in localStorage
 if(localStorage.getItem("favorites")){
-    favorites = JSON.parse(localStorage.getItem("favorites"));
+    favorites = (JSON.parse(localStorage.getItem("favorites"))) || [];
+    console.log(favorites);
+    document.querySelector(".cards").textContent = "";
+    if(favorites.length > 0){
+        favorites.forEach(function(el, i){
+            var favDiv = document.createElement("div");
+            favDiv.setAttribute("class", "favDiv");
+            var favImg = document.createElement("img");
+            favImg.setAttribute("class", "favImg");
+            favImg.setAttribute("src", el.photos[0].href);
+            var favAddress = document.createElement("p");
+            favAddress.setAttribute("class", "favAddress");
+            favAddress.textContent= el.line + ", " + el.city + ", " + el.state;
+            favDiv.appendChild(favImg);
+            favDiv.appendChild(favAddress);
+            console.log(favAddress);
+            
+            document.querySelector(".cards").appendChild(favDiv);
+        });
+    }
 }
+
 // var elem = new Foundation.Sticky(element, options);
 // API to get list of houses by zip code, city, state and radius
 // It searches only single_family houses
