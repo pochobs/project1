@@ -48,6 +48,7 @@ var getHousesList = function(postal_code, city, state_code, radius){
             "x-rapidapi-key": "14ac62fbb2mshd58e729e7b4f36ep1704c5jsn9ba276807be6"
         }
     })
+    
     .then(response => {
         if (response.ok) {
             response.json().then(function(data){
@@ -71,11 +72,16 @@ var getHousesList = function(postal_code, city, state_code, radius){
                         year_built: data.properties[i].year_built,                       
                         photos : data.properties[i].photos
                     }
+//<<<<<<< feature/faves
                    
                     if (data.properties[i].community) {
 
                         house.contact_number = data.properties[i].community.contact_number;
                         
+//=======
+                    if(data.properties[i].community) {
+                        house.contact_number = data.properties[i].community.contact_number;
+//>>>>>>> master
                     }
                     else {
                         house.contact_number = "";
@@ -123,6 +129,7 @@ var addOneMarker = function(markerLatLng, houseInfo){
     if (houseInfo.photos[0])
         href = houseInfo.photos[0].href;
     var housePrice = 0;
+//<<<<<<< feature/faves
     if (houseInfo.price) {
         housePrice = houseInfo.price;
     }
@@ -132,6 +139,35 @@ var addOneMarker = function(markerLatLng, houseInfo){
     "<p class='pInfoWindow' >" + houseInfo.beds + " bd / " + houseInfo.baths + " ba / " + houseInfo.building_size + " " + houseInfo.building_size_units + "</p>" +
     "<a class='button primary small marginTop' href='#'> Take me here </a> <a class='button alert small marginTop' id='saveInfo' data='"+JSON.stringify(houseInfo)+"' href='#'>Add to Favorites</a> <a class='button success small float-bottom-right marginTop' href='#'>Add to Visit List</a>"; 
     
+//=======
+    if(houseInfo.price) {
+        housePrice = houseInfo.price;
+    }
+    var houseBeds = 0;
+    if(houseInfo.beds) {
+        houseBeds = houseInfo.beds;
+    }
+    var houseBaths = 0;
+    if(houseInfo.baths) {
+        houseBaths = houseInfo.baths;
+    }
+    var houseSqft = 0;
+    if(houseInfo.building_size) {
+        houseSqft = houseInfo.building_size;
+    }
+    var houseContactNumber = "";
+    if(houseInfo.contact_number) {
+        houseContactNumber = houseInfo.contact_number;
+    }
+   
+    infoWindowDiv.innerHTML = "<img class='float-center marginBottom iconImage' src = '" + href + "' alt= '" + houseInfo.line + "' />" +
+    "<p class='pInfoWindow' >$" + housePrice + "</p>";
+    if (houseContactNumber)
+        infoWindowDiv.innerHTML = infoWindowDiv.innerHTML + "<p class='pInfoWindow' >Contact Number:" + houseContactNumber + "</p>";
+    infoWindowDiv.innerHTML = infoWindowDiv.innerHTML + "<p class='pInfoWindow' >" + houseInfo.line + ", " + houseInfo.city + ", " + houseInfo.state + "</p>" + 
+    "<p class='pInfoWindow' >" + houseBeds + " bd / " + houseBaths + " ba / " + houseSqft + " " + houseInfo.building_size_units + "</p>" +
+    "<a class='button primary small float-center marginTop' href='#'> Take me here </a>"; 
+//>>>>>>> master
 
     var infowindow = new google.maps.InfoWindow({
         enableEventPropagation: true
