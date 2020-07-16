@@ -3,6 +3,30 @@ var map; // used by google maps
 var directionsService; // used by google maps
 var directionsRenderer; // used by google maps
 var oldDirectionRenderer;
+var favorites = []; // creates an array that saves info in localStorage
+if(localStorage.getItem("favorites")){
+    favorites = (JSON.parse(localStorage.getItem("favorites"))) || [];
+    console.log(favorites);
+    document.querySelector(".cards").textContent = "";
+    if(favorites.length > 0){
+        favorites.forEach(function(el, i){
+            var favDiv = document.createElement("div");
+            favDiv.setAttribute("class", "favDiv");
+            var favImg = document.createElement("img");
+            favImg.setAttribute("class", "favImg");
+            favImg.setAttribute("src", el.photos[0].href);
+            var favAddress = document.createElement("p");
+            favAddress.setAttribute("class", "favAddress");
+            favAddress.textContent= el.line + ", " + el.city + ", " + el.state;
+            favDiv.appendChild(favImg);
+            favDiv.appendChild(favAddress);
+            console.log(favAddress);
+            
+            document.querySelector(".cards").appendChild(favDiv);
+        });
+    }
+}
+
 // var elem = new Foundation.Sticky(element, options);
 // API to get list of houses by zip code, city, state and radius
 // It searches only single_family houses
@@ -31,6 +55,7 @@ var getHousesList = function(postal_code, city, state_code, radius){
                 console.log(data);
                 rentListArr = [];
                 for (i=0; i< data.meta.returned_rows; i++){
+                    
                     var house = {
                         city : data.properties[i].address.city,
                         county: data.properties[i].address.county,
@@ -44,11 +69,19 @@ var getHousesList = function(postal_code, city, state_code, radius){
                         building_size : data.properties[i].building_size.size, 
                         building_size_units : data.properties[i].building_size.units, 
                         price : data.properties[i].price,
-                        year_built: data.properties[i].year_built,
+                        year_built: data.properties[i].year_built,                       
                         photos : data.properties[i].photos
                     }
+//<<<<<<< feature/faves
+                   
+                    if (data.properties[i].community) {
+
+                        house.contact_number = data.properties[i].community.contact_number;
+                        
+//=======
                     if(data.properties[i].community) {
                         house.contact_number = data.properties[i].community.contact_number;
+//>>>>>>> master
                     }
                     else {
                         house.contact_number = "";
@@ -80,13 +113,15 @@ var readHousesList = function(){
     }
 }
 
+
+
 //Add one marker on the map
 var addOneMarker = function(markerLatLng, houseInfo){
     var imageIcon = {
         url: "https://img.icons8.com/doodle/48/000000/home--v1.png", 
         scaledSize: new google.maps.Size(30, 30)
     };
-
+    // console.log(houseInfo);
     var infoWindowDiv = document.createElement("div");
     infoWindowDiv.setAttribute("data-lat", markerLatLng.lat);
     infoWindowDiv.setAttribute("data-lng", markerLatLng.lng);
@@ -94,6 +129,17 @@ var addOneMarker = function(markerLatLng, houseInfo){
     if (houseInfo.photos[0])
         href = houseInfo.photos[0].href;
     var housePrice = 0;
+//<<<<<<< feature/faves
+    if (houseInfo.price) {
+        housePrice = houseInfo.price;
+    }
+    infoWindowDiv.innerHTML = "<img class='float-center marginBottom iconImage' src = '" + href + "' alt= '" + houseInfo.line + "' />" +
+    "<p class='pInfoWindow' >$" + housePrice + "</p>" + "<p class='pInfoWindow' >Contact Number :" + houseInfo.contact_number + "</p>" 
+    "<p class='pInfoWindow' >" + houseInfo.line + ", " + houseInfo.city + ", " + houseInfo.state + "</p>" + 
+    "<p class='pInfoWindow' >" + houseInfo.beds + " bd / " + houseInfo.baths + " ba / " + houseInfo.building_size + " " + houseInfo.building_size_units + "</p>" +
+    "<a class='button primary small marginTop' href='#'> Take me here </a> <a class='button alert small marginTop' id='saveInfo' data='"+JSON.stringify(houseInfo)+"' href='#'>Add to Favorites</a> <a class='button success small float-bottom-right marginTop' href='#'>Add to Visit List</a>"; 
+    
+//=======
     if(houseInfo.price) {
         housePrice = houseInfo.price;
     }
@@ -121,6 +167,7 @@ var addOneMarker = function(markerLatLng, houseInfo){
     infoWindowDiv.innerHTML = infoWindowDiv.innerHTML + "<p class='pInfoWindow' >" + houseInfo.line + ", " + houseInfo.city + ", " + houseInfo.state + "</p>" + 
     "<p class='pInfoWindow' >" + houseBeds + " bd / " + houseBaths + " ba / " + houseSqft + " " + houseInfo.building_size_units + "</p>" +
     "<a class='button primary small float-center marginTop' href='#'> Take me here </a>"; 
+//>>>>>>> master
 
     var infowindow = new google.maps.InfoWindow({
         enableEventPropagation: true
@@ -138,11 +185,20 @@ var addOneMarker = function(markerLatLng, houseInfo){
     });
 
     google.maps.event.addDomListener(infoWindowDiv, 'click', function(event){
+        console.log(event.target.id);
         if (event.target.className.includes("button primary small"))
             calcRoute({lat: parseFloat(event.target.closest("div").getAttribute("data-lat")), 
                     lng: parseFloat(event.target.closest("div").getAttribute("data-lng")) });
+        if (event.target.id == "saveInfo") {
+            favorites.push(JSON.parse(event.target.getAttribute("data")));
+            console.log(favorites);
+            localStorage.setItem("favorites",JSON.stringify(favorites));
+        }
     } );
 }
+
+
+
 
 //Read Houses List from Local Storage and put them on the map
 var addMarkers = function(){
