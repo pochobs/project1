@@ -7,6 +7,42 @@ var oldDirectionRenderer;
 // API to get list of houses by zip code, city, state and radius
 // It searches only single_family houses
 // It saves fetched results to local Storage 
+var favorites = []; // creates an array that saves info in localStorage
+var favList = function() {
+console.log(favorites);
+if(localStorage.getItem("favorites")){
+    favorites = (JSON.parse(localStorage.getItem("favorites"))) || [];
+    console.log(favorites);
+    document.querySelector("#favoritesBar").textContent = "";
+    if(favorites.length > 0){
+        favorites.forEach(function(el, i){
+            var favDiv = document.createElement("div");
+            favDiv.setAttribute("class", "favDiv");
+            var favImg = document.createElement("img");
+            favImg.setAttribute("class", "favImg");
+            debugger;
+             if (el.photos.length > 0){
+                 favImg.setAttribute("src", el.photos[0].href);
+             }
+            var favAddress = document.createElement("p");
+            favAddress.setAttribute("class", "favAddress");
+            var removeFav = document.createElement("button");
+            removeFav.textContent = "Remove from Favorites";
+            removeFav.setAttribute("data-id", i);
+            removeFav.className = "button alert small ";
+            favAddress.textContent= el.line + ", " + el.city + ", " + el.state;
+            favDiv.appendChild(favImg);
+            favDiv.appendChild(favAddress);
+            favDiv.appendChild(removeFav);
+            console.log(favAddress);
+
+            document.querySelector("#favoritesBar").appendChild(favDiv);
+            
+            
+        });
+    }
+}
+}
 var getHousesList = function(postal_code, city, state_code, radius){
 
     //errorEl.innerHTML="";
@@ -120,7 +156,7 @@ var addOneMarker = function(markerLatLng, houseInfo){
         infoWindowDiv.innerHTML = infoWindowDiv.innerHTML + "<p class='pInfoWindow' >Contact Number:" + houseContactNumber + "</p>";
     infoWindowDiv.innerHTML = infoWindowDiv.innerHTML + "<p class='pInfoWindow' >" + houseInfo.line + ", " + houseInfo.city + ", " + houseInfo.state + "</p>" + 
     "<p class='pInfoWindow' >" + houseBeds + " bd / " + houseBaths + " ba / " + houseSqft + " " + houseInfo.building_size_units + "</p>" +
-    "<a class='button primary small float-center marginTop' href='#'> Take me here </a>"; 
+    "<a class='button primary small float-center marginTop' href='#'> Take me here </a> <a class='button success small marginTop' id='saveInfo' data='"+JSON.stringify(houseInfo)+"' href='#'>Add to Favorites</a>"; 
 
     var infowindow = new google.maps.InfoWindow({
         enableEventPropagation: true
@@ -141,6 +177,13 @@ var addOneMarker = function(markerLatLng, houseInfo){
         if (event.target.className.includes("button primary small"))
             calcRoute({lat: parseFloat(event.target.closest("div").getAttribute("data-lat")), 
                     lng: parseFloat(event.target.closest("div").getAttribute("data-lng")) });
+        if (event.target.id == "saveInfo") {
+            favorites.push(JSON.parse(event.target.getAttribute("data")));
+            console.log(favorites);
+            localStorage.setItem("favorites",JSON.stringify(favorites));
+            favList();
+        }
+
     } );
 }
 
@@ -245,5 +288,22 @@ $( ".button" ).click(function( event ) {
         getHousesList(searchZipcode, searchCity, searchState);
 });
 
+var removeFavFunct = function(event){
+    if (event.target.matches("button")){
+        var delFav = event.target.getAttribute("data-id");
+        favorites.splice(delFav, 1);
+        localStorage.setItem("favorites",JSON.stringify(favorites));
+        favList();
+    }
+}
+
 // call to put multiple listings on the map; list of houses is taken from the local storage
 initMap(); 
+
+
+//calls the items in the favorites list onto the page once the item is added to favorites
+favList();
+
+favoritesBar.addEventListener("click", removeFavFunct);
+// call to get rental houses list for zip code, city and state (and optional radius); the list is saved to local storage;
+//getHousesList(78727,'Austin','TX'); var elem = new Foundation.Sticky(element, options);
