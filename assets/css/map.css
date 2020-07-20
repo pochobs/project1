@@ -1,7 +1,8 @@
 
   #map {
-    margin: 10px;
+    /*margin: 10px;*/
     height: 100%;
+    width: 85%;
   }
   
   :root {
@@ -71,29 +72,107 @@
   .marginBottom{
     margin-bottom: 10px;
   }
-  #favoritesBar {
+
+
+  .mapAndFaves{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    align-items: flex-start;
     height: 100%;
-   width:300px;
-   background-color: antiquewhite;
-   position: absolute;
-   right: 0;
-   top: 0;
-   overflow: scroll;
- }
- .mapAndFaves {
-   height: 100%;
-   width: 100%;
-   position: relative;
- }
+    margin:10px;
+  }
+
+  .favFlex{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    width: 15%;
+    margin-left: 10px;
+    background-color: var(--primary);
+    overflow-y: auto;
+    max-height: 76.9vh;
+  }
+
+  .favFlex h4{
+    width: 100%;
+    text-align: center;
+  }
+
+  #favoritesBar{
+    width: 100%;
+    text-align: center;
+  }
+  
+  #favoritesBar div{
+    background-color: antiquewhite;
+    border-bottom: 2px solid white;
+  }
+
  .favImg {
-   width: 55px;
+   width: 100px;
  }
  .favDiv {
-   padding: 10px;
-   border: solid 1px lightgrey ;
+   padding: 10px 10px 0px 10px;
  }
  .favAddress {
-   padding: 15px;
+   padding-top: 10px;
    font-size: small;
-   right: 0;
+ }
+
+
+ @media screen and (max-width: 980px) {
+
+  html, body {
+    min-height: unset;
+    height: unset;
+  }
+
+  .mapAndFaves{
+    flex-direction: column;
+  }
+
+  .favFlex{
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    background-color: white;
+    align-items: stretch;
+    overflow-y: visible;
+    margin: 0;
+  }
+
+  .favFlex h4{
+    text-align: left;
+    width: auto;
+    background-color: var(--primary);
+    margin: 10px 0 0 0;   
+    padding: 0 10px 0 10px; 
+  }
+
+  #map{
+    width: 100%;
+    min-height: 77vh;
+  }
+
+
+  #favoritesBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: stretch;
+    margin: 10px 0 0 0;   
+  }
+
+  #favoritesBar div{
+    background-color: antiquewhite;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    flex-basis: 25%; 
+    flex-grow: 0; 
+  }
+
  }

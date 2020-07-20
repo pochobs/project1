@@ -3,46 +3,42 @@ var map; // used by google maps
 var directionsService; // used by google maps
 var directionsRenderer; // used by google maps
 var oldDirectionRenderer;
-// var elem = new Foundation.Sticky(element, options);
+
+var favorites = []; // creates an array that saves info in localStorage
+
+var favList = function() {
+    if(localStorage.getItem("favorites")){
+        favorites = (JSON.parse(localStorage.getItem("favorites"))) || [];
+        console.log(favorites);
+        document.querySelector("#favoritesBar").textContent = "";
+        if(favorites.length > 0){
+            favorites.forEach(function(el, i){
+                var favDiv = document.createElement("div");
+                favDiv.setAttribute("class", "favDiv");
+                var favImg = document.createElement("img");
+                favImg.setAttribute("class", "favImg");
+                 if (el.photos.length > 0){
+                    favImg.setAttribute("src", el.photos[0].href);
+                }
+                var favAddress = document.createElement("p");
+                favAddress.setAttribute("class", "favAddress");
+                var removeFav = document.createElement("button");
+                removeFav.textContent = "Remove from Favorites";
+                removeFav.setAttribute("data-id", i);
+                removeFav.className = "button alert small ";
+                favAddress.textContent= el.line + ", " + el.city + ", " + el.state;
+                favDiv.appendChild(favImg);
+                favDiv.appendChild(favAddress);
+                favDiv.appendChild(removeFav);
+                document.querySelector("#favoritesBar").appendChild(favDiv);
+            });
+        }
+    }
+}
+
 // API to get list of houses by zip code, city, state and radius
 // It searches only single_family houses
 // It saves fetched results to local Storage 
-var favorites = []; // creates an array that saves info in localStorage
-var favList = function() {
-console.log(favorites);
-if(localStorage.getItem("favorites")){
-    favorites = (JSON.parse(localStorage.getItem("favorites"))) || [];
-    console.log(favorites);
-    document.querySelector("#favoritesBar").textContent = "";
-    if(favorites.length > 0){
-        favorites.forEach(function(el, i){
-            var favDiv = document.createElement("div");
-            favDiv.setAttribute("class", "favDiv");
-            var favImg = document.createElement("img");
-            favImg.setAttribute("class", "favImg");
-            debugger;
-             if (el.photos.length > 0){
-                 favImg.setAttribute("src", el.photos[0].href);
-             }
-            var favAddress = document.createElement("p");
-            favAddress.setAttribute("class", "favAddress");
-            var removeFav = document.createElement("button");
-            removeFav.textContent = "Remove from Favorites";
-            removeFav.setAttribute("data-id", i);
-            removeFav.className = "button alert small ";
-            favAddress.textContent= el.line + ", " + el.city + ", " + el.state;
-            favDiv.appendChild(favImg);
-            favDiv.appendChild(favAddress);
-            favDiv.appendChild(removeFav);
-            console.log(favAddress);
-
-            document.querySelector("#favoritesBar").appendChild(favDiv);
-            
-            
-        });
-    }
-}
-}
 var getHousesList = function(postal_code, city, state_code, radius){
 
     //errorEl.innerHTML="";
@@ -156,7 +152,7 @@ var addOneMarker = function(markerLatLng, houseInfo){
         infoWindowDiv.innerHTML = infoWindowDiv.innerHTML + "<p class='pInfoWindow' >Contact Number:" + houseContactNumber + "</p>";
     infoWindowDiv.innerHTML = infoWindowDiv.innerHTML + "<p class='pInfoWindow' >" + houseInfo.line + ", " + houseInfo.city + ", " + houseInfo.state + "</p>" + 
     "<p class='pInfoWindow' >" + houseBeds + " bd / " + houseBaths + " ba / " + houseSqft + " " + houseInfo.building_size_units + "</p>" +
-    "<a class='button primary small float-center marginTop' href='#'> Take me here </a> <a class='button success small marginTop' id='saveInfo' data='"+JSON.stringify(houseInfo)+"' href='#'>Add to Favorites</a>"; 
+    "<a class='button primary small float-center marginTop' href='#'> Take me here </a> <a class='button alert small float-center marginTop' id='saveInfo' data='"+JSON.stringify(houseInfo)+"' href='#'>Add to Favorites</a>"; 
 
     var infowindow = new google.maps.InfoWindow({
         enableEventPropagation: true
